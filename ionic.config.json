@@ -1,0 +1,7 @@
+{
+  "name": "AppAndre",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
