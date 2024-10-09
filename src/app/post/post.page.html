@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Post</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <!-- Botão para remover a imagem, só aparece se houver uma imagem selecionada -->
+  <ion-button color="danger" *ngIf="selectedImage" (click)="removerImagem()">Remover Imagem</ion-button>
+
+  <!-- Botão para tirar foto -->
+  <ion-button expand="full" (click)="tirarFoto()">Tirar Foto</ion-button>
+  
+  <!-- Botão para enviar (fazer upload) da imagem -->
+  <ion-button expand="full" (click)="enviarImagem()">Enviar Imagem</ion-button>
+  
+  <!-- Input de arquivo para selecionar imagem -->
+  <input type="file" (change)="imagemSelecionada($event)" accept="image/*" hidden id="inputArquivo"/>
+  
+  <!-- Imagem selecionada que será exibida -->
+  <img [src]="selectedImage" *ngIf="selectedImage"/>
+</ion-content>
+
+
