@@ -4,41 +4,46 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<!-- <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">registro</ion-title>
     </ion-toolbar>
   </ion-header>
 </ion-content>
-<ion-img src="/Mercadindin/src/assets/images/mercadindin.png" ></ion-img>
-<ion-content class="ion-padding">
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-input  label="E-mail"labelPlacement="floating" type="email" placeholder="E-mail" required></ion-input>
-        </ion-item>
-      </ion-col>
-      <ion-col>
-        <ion-item>
-          <ion-input  label="Nome de Usuário"labelPlacement="floating" type="text" placeholder="Nome de Usuário" required></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-input  label="Senha"labelPlacement="floating" type="password" placeholder="Senha" required></ion-input>
-        </ion-item>
-      </ion-col>
-      <ion-col>
-        <ion-item>
-          <ion-input  label="Confirmar Senha"labelPlacement="floating" type="password" placeholder="Confirmar Senha" required></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-button expand="block">Cadastrar</ion-button>
-    <ion-button expand="block" (click)="LoginPag()">Fazer Login</ion-button>
-  </ion-grid>
-</ion-content>
+<ion-img src="/Mercadindin/src/assets/images/mercadindin.png" ></ion-img>-->
+
+<form>
+  <div class="ion-padding">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-input  label="E-mail"labelPlacement="floating" type="email" placeholder="E-mail" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-input  label="Nome de Usuário"labelPlacement="floating" type="text" placeholder="Nome de Usuário" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-input  label="Senha"labelPlacement="floating" type="password" placeholder="Senha" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-input  label="Confirmar Senha"labelPlacement="floating" type="password" placeholder="Confirmar Senha" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-button expand="block">Cadastrar</ion-button>
+      <ion-button expand="block" (click)="LoginPag()">Fazer Login</ion-button>
+      </ion-grid>
+  </div>
+</form>
+
+
