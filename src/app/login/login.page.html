@@ -12,7 +12,7 @@
   </ion-header>
 </ion-content>
 
-<ion-img src="/Mercadindin/src/assets/images/mercadindin.png" ></ion-img>
+<ion-img src="src/assets/images/img_login/mercadindin.png" ></ion-img>
 
 <form [formGroup]="loginForm" (ngSubmit)="logar()">
   <div class="ion-padding">
@@ -27,11 +27,11 @@
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-input formControlName="password" fill="solid" label="Senha"labelPlacement="floating" type="text" placeholder="Senha"></ion-input>
+            <ion-input formControlName="password" fill="solid" label="Senha"labelPlacement="floating" type="password" placeholder="Senha"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-button expand="block" class="botao" [disabled]="!loginForm.valid">Login</ion-button>
+      <ion-button expand="block" class="botao" type="submit"[disabled]="!loginForm.valid">Login</ion-button>
       <ion-button expand="block" class="botao" (click)="RegistroPag()">Não possui login? Cadastre-se</ion-button>
     </ion-grid>
   </div>

@@ -56,16 +56,17 @@ export class LoginPage implements OnInit {
 
     if (this.loginForm.valid) {
       try {
+        // Chama o serviço de autenticação
         const user = await this.authService.loginUser(
           this.loginForm.value.email,
           this.loginForm.value.password
         );
         if (user) {
           loading.dismiss();
-          this.router.navigate(['/home']);
+          this.router.navigate(['/home']);  // Redireciona para a página home
           this.presentToast('Login bem-sucedido!');
         }
-      } catch (error: any) {  // Tratar o erro corretamente
+      } catch (error: any) {
         console.error(error);
         loading.dismiss();
         this.presentToast('Erro ao fazer login: ' + (error.message || 'Erro desconhecido'));

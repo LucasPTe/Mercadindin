@@ -1,5 +1,6 @@
-import { Component , OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -8,14 +9,6 @@ import { Router } from '@angular/router';
 export class HomePage implements OnInit {
   isModalOpen = false;
   selectedProduct: any;  // Variável para armazenar o produto selecionado
-
-  ngOnInit() {
-  }
-
-  PostPag() {
-    this.router.navigate(['/post']);
-  }
-
 
   // Lista de produtos
   products = [
@@ -36,6 +29,17 @@ export class HomePage implements OnInit {
   ];
 
   constructor(private router: Router) {}
+
+  ngOnInit() {}
+
+  // Método que navega para outras páginas
+  navigateTo(page: string) {
+    this.router.navigate([`/${page}`]);
+  }
+
+  PostPag() {
+    this.router.navigate(['/post']);
+  }
 
   // Método que abre o modal e define o produto selecionado
   setOpen(isOpen: boolean, product?: any) {
