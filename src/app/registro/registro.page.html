@@ -13,34 +13,34 @@
 </ion-content>
 <ion-img src="/Mercadindin/src/assets/images/mercadindin.png" ></ion-img>-->
 
-<form>
+<form [formGroup]="regForm" (ngSubmit)="registrar()">
   <div class="ion-padding">
     <ion-grid>
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-input  label="E-mail"labelPlacement="floating" type="email" placeholder="E-mail" required></ion-input>
+            <ion-input  formControlName="email" label="E-mail"labelPlacement="floating" type="email" placeholder="E-mail" required></ion-input>
           </ion-item>
         </ion-col>
         <ion-col>
           <ion-item>
-            <ion-input  label="Nome de Usuário"labelPlacement="floating" type="text" placeholder="Nome de Usuário" required></ion-input>
+            <ion-input formControlName="fullname" label="Nome de Usuário"labelPlacement="floating" type="text" placeholder="Nome de Usuário" required></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-input  label="Senha"labelPlacement="floating" type="password" placeholder="Senha" required></ion-input>
+            <ion-input  formControlName="password"label="Senha"labelPlacement="floating" type="password" placeholder="Senha" required></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col>
+        <!--<ion-col>
           <ion-item>
-            <ion-input  label="Confirmar Senha"labelPlacement="floating" type="password" placeholder="Confirmar Senha" required></ion-input>
+            <ion-input  formControlName="confirmPassword"label="Confirmar Senha"labelPlacement="floating" type="password" placeholder="Confirmar Senha" required></ion-input>
           </ion-item>
-        </ion-col>
+        </ion-col>-->
       </ion-row>
-      <ion-button expand="block">Cadastrar</ion-button>
+      <ion-button expand="block" type="submit" [disabled]="!regForm.valid">Cadastrar</ion-button>
       <ion-button expand="block" (click)="LoginPag()">Fazer Login</ion-button>
       </ion-grid>
   </div>

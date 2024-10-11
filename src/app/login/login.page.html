@@ -14,23 +14,25 @@
 
 <ion-img src="/Mercadindin/src/assets/images/mercadindin.png" ></ion-img>
 
-<ion-content class="ion-padding">
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-input fill="solid" label="Nome de Usuário"labelPlacement="floating" type="text" placeholder="Nome de Usuário"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-input fill="solid" label="Senha"labelPlacement="floating" type="text" placeholder="Senha"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-button expand="block" class="botao">Login</ion-button>
-    <ion-button expand="block" class="botao" (click)="RegistroPag()">Não possui login? Cadastre-se</ion-button>
-  </ion-grid>
-</ion-content>
+<form [formGroup]="loginForm" (ngSubmit)="logar()">
+  <div class="ion-padding">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-input formControlName="email" fill="solid" label="E-mail"labelPlacement="floating" type="email" placeholder="E-mail"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-input formControlName="password" fill="solid" label="Senha"labelPlacement="floating" type="text" placeholder="Senha"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-button expand="block" class="botao" [disabled]="!loginForm.valid">Login</ion-button>
+      <ion-button expand="block" class="botao" (click)="RegistroPag()">Não possui login? Cadastre-se</ion-button>
+    </ion-grid>
+  </div>
+</form>
