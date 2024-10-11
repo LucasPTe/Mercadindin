@@ -9,6 +9,17 @@
 
     <ion-content>
       <ion-list>
+        <!-- Exibe a saudação com o e-mail do usuário logado -->
+        <ion-item>
+          <ion-label>Olá, {{ userEmail }}</ion-label> <!-- Exibe o e-mail do usuário -->
+        </ion-item>
+
+        <ion-item button (click)="logoutUser()">
+          <ion-icon slot="start" name="log-out"></ion-icon>
+          Logout
+        </ion-item>
+
+        <!-- Itens do menu -->
         <ion-item button (click)="navigateTo('home')">
           <ion-icon slot="start" name="home"></ion-icon>
           Home

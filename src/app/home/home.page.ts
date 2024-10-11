@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/compat/auth'; // Importa o serviço de autenticação do Firebase
+import { AutheticationService } from 'src/app/authetication.service';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +11,7 @@ import { Router } from '@angular/router';
 export class HomePage implements OnInit {
   isModalOpen = false;
   selectedProduct: any;  // Variável para armazenar o produto selecionado
+  userEmail: string | null = null;  // Variável para armazenar o e-mail do usuário
 
   // Lista de produtos
   products = [
@@ -28,9 +31,18 @@ export class HomePage implements OnInit {
     }
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private afAuth: AngularFireAuth, private authService: AutheticationService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // Verifica o estado de autenticação do usuário
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.userEmail = user.email; // Armazena o e-mail do usuário logado
+      } else {
+        this.userEmail = null; // Se não estiver logado, o e-mail será null
+      }
+    });
+  }
 
   // Método que navega para outras páginas
   navigateTo(page: string) {
@@ -47,5 +59,14 @@ export class HomePage implements OnInit {
     if (isOpen && product) {
       this.selectedProduct = product;
     }
+  }
+
+  // Método de logout
+  logoutUser() {
+    this.authService.logoutUser().then(() => {
+      this.router.navigate(['/login']);  // Redireciona para a tela de login
+    }).catch(error => {
+      console.error('Erro ao deslogar: ', error);
+    });
   }
 }
