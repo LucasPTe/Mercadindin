@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   firebaseConfig : {
-    apiKey: "AIzaSyCUuZFEg8dY4naA-QeGvvC3pO_1pCfWe6A",
-    authDomain: "mercadindin-52d23.firebaseapp.com",
-    projectId: "mercadindin-52d23",
-    storageBucket: "mercadindin-52d23.appspot.com",
-    messagingSenderId: "24705117962",
-    appId: "1:24705117962:web:e5a0f7aafb0b816afdd4f3",
-    measurementId: "G-LGL4HT60DV"
+    apiKey: "AIzaSyBS4wlMN3R_rrPUZ66N1C90waKkTIKwF5o",
+    authDomain: "mercadindin-ae0ac.firebaseapp.com",
+    projectId: "mercadindin-ae0ac",
+    storageBucket: "mercadindin-ae0ac.appspot.com",
+    messagingSenderId: "563188006090",
+    appId: "1:563188006090:web:2eb716ce5006468b67c833",
+    measurementId: "G-K52B0CLFR9"
   }
 };
 
