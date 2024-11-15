@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/compat/auth'; // Importa o serviço de autenticação do Firebase
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AutheticationService } from 'src/app/authetication.service';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-home',
@@ -10,50 +11,48 @@ import { AutheticationService } from 'src/app/authetication.service';
 })
 export class HomePage implements OnInit {
   isModalOpen = false;
-  selectedProduct: any;  // Variável para armazenar o produto selecionado
-  userEmail: string | null = null;  // Variável para armazenar o e-mail do usuário
+  selectedProduct: any;
+  userEmail: string | null = null;
 
   // Lista de produtos
-  products = [
-    {
-      title: 'Arroz Branco - Princesa 5kg',
-      subtitle: 'Supermercado Guanabara - Penha',
-      price: 'R$ 5,99',
-      image: 'assets/images/img_home/Arroz_branco.jpg',
-      description: 'Descrição específica do Arroz Branco.'
-    },
-    {
-      title: 'Feijão Preto - Marca X 1kg',
-      subtitle: 'Supermercado Guanabara - Penha',
-      price: 'R$ 7,99',
-      image: 'assets/images/img_home/feijao_preto.png',
-      description: 'Descrição específica do Feijão Preto.'
-    }
-  ];
+  products: any[] = [];
 
-  constructor(private router: Router, private afAuth: AngularFireAuth, private authService: AutheticationService) {}
+  constructor(
+    private router: Router,
+    private afAuth: AngularFireAuth,
+    private authService: AutheticationService,
+    private storage: Storage // Adiciona o serviço de Storage
+  ) {}
 
-  ngOnInit() {
-    // Verifica o estado de autenticação do usuário
+  async ionViewWillEnter() {
+    // Recarrega os produtos do Local Storage sempre que a página é exibida
+    const storedProducts = await this.storage.get('products');
+    this.products = storedProducts || [];
+    console.log('Produtos carregados ao entrar na página:', this.products);
+  }
+  
+  async ngOnInit() {
+    await this.storage.create(); // Inicializa o Storage
+  
+    // Carrega os produtos do Local Storage
+    const storedProducts = await this.storage.get('products');
+    this.products = storedProducts || [];
+  
+    // Obtem o e-mail do usuário logado
     this.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.userEmail = user.email; // Armazena o e-mail do usuário logado
-      } else {
-        this.userEmail = null; // Se não estiver logado, o e-mail será null
-      }
+      this.userEmail = user ? user.email : null;
     });
   }
 
-  // Método que navega para outras páginas
-  navigateTo(page: string) {
-    this.router.navigate([`/${page}`]);
+  async addProduct(product: any) {
+    this.products.push(product); // Adiciona o produto à lista
+    await this.storage.set('products', this.products); // Salva no Storage
   }
 
   PostPag() {
     this.router.navigate(['/post']);
   }
 
-  // Método que abre o modal e define o produto selecionado
   setOpen(isOpen: boolean, product?: any) {
     this.isModalOpen = isOpen;
     if (isOpen && product) {
@@ -61,12 +60,25 @@ export class HomePage implements OnInit {
     }
   }
 
-  // Método de logout
   logoutUser() {
     this.authService.logoutUser().then(() => {
-      this.router.navigate(['/login']);  // Redireciona para a tela de login
+      this.router.navigate(['/login']);
     }).catch(error => {
       console.error('Erro ao deslogar: ', error);
     });
+  }
+  generateMapLink(market: string | undefined): string {
+    if (!market) return '';
+  
+    const marketLocations: { [key: string]: string } = {
+      'Guanabara - Bonsucesso': 'https://maps.app.goo.gl/PCF1Qfv6uHSZHPX59',
+      'Guanabara - Penha': 'https://maps.app.goo.gl/bVbk81B5PwchFNzu8',
+      'Guanabara - Engenho da rainha': 'https://maps.app.goo.gl/MpbAySE5VcCKYQkY6',
+      'Supermarket - Bonsucesso': 'https://maps.app.goo.gl/gvC8SCKWTKf5JnScA',
+      'Supermarket - Maria da graça': 'https://maps.app.goo.gl/fNrmCLmaGSG1NZ7E9',
+      'Supermarket - Pilares': 'https://maps.app.goo.gl/fuuqxcQmBTS4BogY6',
+    };
+  
+    return marketLocations[market] || 'https://www.google.com/maps';
   }
 }

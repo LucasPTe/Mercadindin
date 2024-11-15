@@ -7,30 +7,75 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-  <!-- Botão para remover a imagem, só aparece se houver uma imagem selecionada -->
+  <!-- Botão para remover a imagem -->
   <ion-button color="danger" *ngIf="selectedImage" (click)="removerImagem()">Remover Imagem</ion-button>
 
   <!-- Botão para tirar foto -->
   <ion-button expand="full" (click)="tirarFoto()">Tirar Foto</ion-button>
-  
-  <!-- Botão para enviar (fazer upload) da imagem -->
+
+  <!-- Botão para enviar imagem -->
   <ion-button expand="full" (click)="enviarImagem()">Enviar Imagem</ion-button>
-  
+
   <!-- Input de arquivo para selecionar imagem -->
   <input type="file" (change)="imagemSelecionada($event)" accept="image/*" hidden id="inputArquivo"/>
-  
-  <!-- Imagem selecionada que será exibida -->
-  <img [src]="selectedImage" *ngIf="selectedImage"/>
-</ion-content>
 
-<ion-content>
+  <!-- Exibição da imagem selecionada -->
+  <img [src]="selectedImage" *ngIf="selectedImage"/>
+
+  <!-- Input para o título do produto -->
   <ion-list>
     <ion-item>
-      <ion-textarea label="Descrição do produto" label-placement="floating" placeholder="" fill="outline" counter="true" maxlength="35" required></ion-textarea>
+      <ion-textarea
+        label="Título do Produto"
+        label-placement="floating"
+        placeholder="Ex.: Arroz Branco - Marca X"
+        fill="outline"
+        [(ngModel)]="productTitle"
+        maxlength="35"
+        required>
+      </ion-textarea>
+    </ion-item>
+
+    <!-- Menu suspenso para seleção do mercado -->
+    <ion-item>
+      <ion-select
+        label="Mercado"
+        label-placement="floating"
+        [(ngModel)]="selectedMarket"
+        placeholder="Selecione um mercado">
+        <ion-select-option *ngFor="let market of markets" [value]="market">{{ market }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Input para o preço -->
+    <ion-item>
+      <ion-textarea
+        label="Preço"
+        label-placement="floating"
+        placeholder="Ex.: R$ 5,99"
+        fill="outline"
+        [(ngModel)]="productPrice"
+        maxlength="15"
+        required>
+      </ion-textarea>
     </ion-item>
   </ion-list>
+
+  <ion-item>
+    <ion-textarea 
+      label="Descrição" 
+      label-placement="floating" 
+      placeholder="Adicione uma descrição" 
+      [(ngModel)]="description" 
+      fill="outline">
+    </ion-textarea>
+  </ion-item>
+
+  <!-- Botão para salvar o post -->
+  <ion-button expand="full" (click)="salvarPost()">Salvar Post</ion-button>
 </ion-content>
 
-
+<!-- <ion-item>
+  <ion-textarea label="Descrição do produto" label-placement="floating" placeholder="" fill="outline" counter="true" maxlength="120" required></ion-textarea>
+</ion-item> -->

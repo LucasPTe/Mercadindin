@@ -65,10 +65,20 @@
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
+          <p><strong>Postado por:</strong> {{ selectedProduct?.email }}</p> <!-- Exibir o e-mail -->
           <img [src]="selectedProduct?.image" [alt]="selectedProduct?.title" class="img_card_modal">
-          <p>{{ selectedProduct?.description }}</p>
-          <p><a href="https://maps.app.goo.gl/evkaEqMW19z1WUnV7" target="_blank" rel="noopener noreferrer">Av. Brás de Pina, 201 - Penha, Rio de Janeiro - RJ, 21070-031</a></p>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2283.7207466816517!2d-43.2806515!3d-22.84193!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x997bb97f6feaab%3A0x83566a57e4ea3361!2sSupermercados%20Guanabara!5e1!3m2!1spt-BR!2sbr!4v1727489011729!5m2!1spt-BR!2sbr" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <p><strong>Descrição:</strong> {{ selectedProduct?.description }}</p>
+          <ion-item lines="none">
+            <ion-label>
+              <a
+                [href]="generateMapLink(selectedProduct?.subtitle)"
+                target="_blank"
+                rel="noopener noreferrer">
+                {{ selectedProduct?.subtitle }}
+              </a>
+            </ion-label>
+          </ion-item>
+          <p><strong>Preço:</strong> {{ selectedProduct?.price }}</p>
         </ion-content>
       </ng-template>
     </ion-modal>

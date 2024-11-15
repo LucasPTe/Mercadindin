@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'; // Certifique-se de importar CameraSource
+import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage-angular';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-post',
@@ -7,48 +10,102 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'; // C
   styleUrls: ['./post.page.scss'],
 })
 export class PostPage implements OnInit {
-  selectedImage: string | ArrayBuffer | null = null; // Propriedade para armazenar a imagem selecionada
+  selectedImage: string | null = null;
+  productTitle: string = '';
+  selectedMarket: string = ''; // Mercado selecionado
+  productPrice: string = '';
+  userEmail: string | null = null;
+  description: string = '';
 
-  constructor() {}
+  // Lista de mercados pré-definidos
+  markets: string[] = [
+    'Guanabara - Bonsucesso',
+    'Guanabara - Penha',
+    'Guanabara - Engenho da rainha',
+    'Supermarket - Bonsucesso',
+    'Supermarket - Maria da graça',
+    'Supermarket - Pilares'
+  ];
 
-  ngOnInit() {}
+  constructor(
+    private router: Router,
+    private storage: Storage,
+    private afAuth: AngularFireAuth
+  ) {}
 
-  // Função para simular o clique no input de arquivo
+  ngOnInit() {
+    // Obter o e-mail do usuário logado
+    this.afAuth.authState.subscribe((user) => {
+      if (user) {
+        this.userEmail = user.email;
+      }
+    });
+  }
+
+  async salvarPost() {
+    if (!this.productTitle || !this.selectedMarket || !this.productPrice) {
+      alert('Por favor, preencha todos os campos obrigatórios!');
+      return;
+    }
+  
+    const newProduct = {
+      title: this.productTitle,
+      subtitle: this.selectedMarket,
+      price: this.productPrice,
+      image: this.selectedImage || 'assets/images/default-image.png',
+      email: this.userEmail,
+      description: this.description,
+    };
+  
+    // Inicializa o Storage antes de usar
+    await this.storage.create();
+  
+    // Recupera os produtos existentes no Local Storage
+    const storedProducts = (await this.storage.get('products')) || [];
+    console.log('Produtos armazenados antes de adicionar:', storedProducts);
+  
+    // Adiciona o novo post
+    storedProducts.push(newProduct);
+  
+    // Salva os produtos atualizados no Storage
+    await this.storage.set('products', storedProducts);
+    console.log('Produtos armazenados após adicionar:', storedProducts);
+  
+    // Redireciona para a Home
+    alert('Post criado com sucesso!');
+    this.router.navigate(['/home']);
+  }
+
+  async tirarFoto() {
+    try {
+      const photo = await Camera.getPhoto({
+        quality: 90,
+        resultType: CameraResultType.DataUrl,
+        source: CameraSource.Camera,
+      });
+      this.selectedImage = photo.dataUrl || null;
+    } catch (error) {
+      console.error('Erro ao tirar foto:', error);
+    }
+  }
+
+  imagemSelecionada(evento: any) {
+    const arquivo = evento.target.files[0];
+    if (arquivo) {
+      const leitor = new FileReader();
+      leitor.onload = () => {
+        this.selectedImage = leitor.result as string;
+      };
+      leitor.readAsDataURL(arquivo);
+    }
+  }
+
+  removerImagem() {
+    this.selectedImage = null;
+  }
+
   enviarImagem() {
     const inputArquivo = document.getElementById('inputArquivo') as HTMLInputElement;
-    inputArquivo.click(); // Simula o clique no input para selecionar arquivo
-  }
-
-  // Função chamada quando uma imagem é selecionada
-  imagemSelecionada(evento: any) {
-    const arquivo = evento.target.files[0]; // Obtém o arquivo selecionado
-    if (arquivo) {
-      const leitor = new FileReader(); // Utiliza FileReader para ler o conteúdo do arquivo
-      leitor.onload = () => {
-        this.selectedImage = leitor.result; // Armazena a imagem carregada como base64
-      };
-      leitor.readAsDataURL(arquivo); // Converte a imagem para URL base64
-    }
-  }
-
-  // Função para remover a imagem selecionada
-  removerImagem() {
-    this.selectedImage = null; // Limpa a imagem selecionada
-  }
-
-  // Função para tirar foto com a câmera
-  async tirarFoto() {
-    const photo = await Camera.getPhoto({
-      quality: 90,
-      resultType: CameraResultType.DataUrl, // Obtém a imagem como Data URL
-      source: CameraSource.Camera // Usando o tipo correto em vez de uma string
-    });
-  
-    // Verifica se photo.dataUrl não é undefined
-    if (photo.dataUrl) {
-      this.selectedImage = photo.dataUrl; // Atribui o Data URL à selectedImage
-    } else {
-      this.selectedImage = null; // Se for undefined, atribui null
-    }
+    inputArquivo.click();
   }
 }

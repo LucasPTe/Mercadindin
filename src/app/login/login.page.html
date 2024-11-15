@@ -12,7 +12,7 @@
   </ion-header>
 </ion-content>
 
-<ion-img src="src/assets/images/img_login/mercadindin.png" ></ion-img>
+
 
 <form [formGroup]="loginForm" (ngSubmit)="logar()">
   <div class="ion-padding">
@@ -27,7 +27,7 @@
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-input formControlName="password" fill="solid" label="Senha"labelPlacement="floating" type="password" placeholder="Senha"></ion-input>
+            <ion-input formControlName="password" fill="solid" label="Senha"labelPlacement="floating" type="password" placeholder="Senha" maxlength="8"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
