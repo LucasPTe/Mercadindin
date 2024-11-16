@@ -1,38 +1,40 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Login</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content [fullscreen]="true">
+<!-- <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Login</ion-title>
     </ion-toolbar>
   </ion-header>
-</ion-content>
+</ion-content> -->
+<body id="conteiner-geral">
+  <header id="conteiner-1">
+    <section id="conteiner-titulo">
+      <h1>Bem vindo!!</h1>
+    </section>
+  </header>
 
-
-
-<form [formGroup]="loginForm" (ngSubmit)="logar()">
-  <div class="ion-padding">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-input formControlName="email" fill="solid" label="E-mail"labelPlacement="floating" type="email" placeholder="E-mail"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-input formControlName="password" fill="solid" label="Senha"labelPlacement="floating" type="password" placeholder="Senha" maxlength="8"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-button expand="block" class="botao" type="submit"[disabled]="!loginForm.valid">Login</ion-button>
-      <ion-button expand="block" class="botao" (click)="RegistroPag()">Não possui login? Cadastre-se</ion-button>
-    </ion-grid>
-  </div>
-</form>
+  <form [formGroup]="loginForm" (ngSubmit)="logar()" id="conteiner-2">
+    <div class="ion-padding">
+      <ion-grid>
+        <ion-row>
+          <ion-col class="box-geral-input">            
+              <ion-input formControlName="email" label="E-mail"labelPlacement="floating" type="email" placeholder="E-mail" class="box-input"></ion-input>         
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="box-geral-input"> 
+              <ion-input formControlName="password"  label="Senha"labelPlacement="floating" type="password" placeholder="Senha" maxlength="8" class="box-input"></ion-input>            
+          </ion-col>
+        </ion-row>
+        <ion-button expand="block" class="botao botao" type="submit"[disabled]="!loginForm.valid">Entrar</ion-button>
+        <ion-button expand="block" class="botao" (click)="RegistroPag()">Cadastre-se</ion-button>
+      </ion-grid>
+    </div>
+    <h2 id="h2-grupo">Create by grupo 5</h2>
+  </form>
+</body>

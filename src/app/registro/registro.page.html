@@ -1,8 +1,4 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Registro</ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <!-- <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
@@ -12,27 +8,31 @@
   </ion-header>
 </ion-content>
 <ion-img src="/Mercadindin/src/assets/images/mercadindin.png" ></ion-img>-->
+<body id="conteiner-geral">
+<header id="conteiner-1">
+  <section id="conteiner-titulo">
+    <h1>Cadastre-se abaixo</h1>
+  </section>
+</header>
 
-<form [formGroup]="regForm" (ngSubmit)="registrar()">
+<form [formGroup]="regForm" (ngSubmit)="registrar()" id="conteiner-2">
   <div class="ion-padding">
     <ion-grid>
       <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-input  formControlName="email" label="E-mail"labelPlacement="floating" type="email" placeholder="E-mail" required></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col>
-          <ion-item>
-            <ion-input formControlName="fullname" label="Nome de Usuário"labelPlacement="floating" type="text" placeholder="Nome de Usuário" required></ion-input>
-          </ion-item>
+        <ion-col class="box-geral-input">
+            <ion-input  formControlName="email" label="E-mail"labelPlacement="floating" type="email" placeholder="E-mail" class="box-input" required></ion-input>         
         </ion-col>
       </ion-row>
+
       <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-input  formControlName="password"label="Senha"labelPlacement="floating" type="password" placeholder="Senha" maxlength="8" required></ion-input>
-          </ion-item>
+        <ion-col class="box-geral-input">          
+            <ion-input formControlName="fullname" label="Nome de Usuário"labelPlacement="floating" type="text" placeholder="Nome de Usuário" class="box-input" required></ion-input>         
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col class="box-geral-input">         
+            <ion-input  formControlName="password"label="Senha"labelPlacement="floating" type="password" placeholder="Senha" maxlength="8" class="box-input" required></ion-input>         
         </ion-col>
         <!--<ion-col>
           <ion-item>
@@ -41,9 +41,10 @@
         </ion-col>-->
       </ion-row>
       <ion-button expand="block" type="submit" [disabled]="!regForm.valid">Cadastrar</ion-button>
-      <ion-button expand="block" (click)="LoginPag()">Fazer Login</ion-button>
+      <ion-button expand="block" (click)="LoginPag()">Voltar</ion-button>
       </ion-grid>
   </div>
+  <h2 id="h2-grupo">Create by grupo 5</h2>
 </form>
-
+</body>
 
