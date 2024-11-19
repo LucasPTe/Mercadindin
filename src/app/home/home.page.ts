@@ -34,11 +34,16 @@ export class HomePage implements OnInit {
   async ngOnInit() {
     await this.storage.create(); // Inicializa o Storage
   
-    // Carrega os produtos do Local Storage
-    const storedProducts = await this.storage.get('products');
-    this.products = storedProducts || [];
-  
-    // Obtem o e-mail do usuário logado
+    try {
+      const storedProducts = await this.storage.get('products'); // Recupera os produtos salvos
+      if (storedProducts) {
+        this.products = storedProducts; // Atualiza a lista de produtos
+        console.log('Produtos carregados:', this.products); // Log para depuração
+      }
+    } catch (error) {
+      console.error('Erro ao carregar os produtos:', error);
+    }
+      // Obtem o e-mail do usuário logado
     this.afAuth.authState.subscribe(user => {
       this.userEmail = user ? user.email : null;
     });

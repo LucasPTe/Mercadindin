@@ -43,8 +43,8 @@ export class PostPage implements OnInit {
   }
 
   async salvarPost() {
-    if (!this.productTitle || !this.selectedMarket || !this.productPrice) {
-      alert('Por favor, preencha todos os campos obrigatórios!');
+    if (!this.productTitle || !this.selectedMarket || !this.productPrice || !this.selectedImage) {
+      alert('Preencha todos os campos e insira uma imagem!');
       return;
     }
   
@@ -52,28 +52,20 @@ export class PostPage implements OnInit {
       title: this.productTitle,
       subtitle: this.selectedMarket,
       price: this.productPrice,
-      image: this.selectedImage || 'assets/images/default-image.png',
+      image: this.selectedImage,
       email: this.userEmail,
       description: this.description,
     };
   
-    // Inicializa o Storage antes de usar
-    await this.storage.create();
-  
-    // Recupera os produtos existentes no Local Storage
-    const storedProducts = (await this.storage.get('products')) || [];
-    console.log('Produtos armazenados antes de adicionar:', storedProducts);
-  
-    // Adiciona o novo post
-    storedProducts.push(newProduct);
-  
-    // Salva os produtos atualizados no Storage
-    await this.storage.set('products', storedProducts);
-    console.log('Produtos armazenados após adicionar:', storedProducts);
-  
-    // Redireciona para a Home
-    alert('Post criado com sucesso!');
-    this.router.navigate(['/home']);
+    try {
+      const storedProducts = (await this.storage.get('products')) || []; // Recupera os produtos existentes ou inicializa uma lista vazia
+      storedProducts.push(newProduct); // Adiciona o novo produto
+      await this.storage.set('products', storedProducts); // Salva os produtos atualizados no Storage
+      console.log('Produto salvo com sucesso:', newProduct); // Log para depuração
+      this.router.navigate(['/home']); // Navega para a página inicial
+    } catch (error) {
+      console.error('Erro ao salvar o post:', error);
+    }
   }
 
   async tirarFoto() {
