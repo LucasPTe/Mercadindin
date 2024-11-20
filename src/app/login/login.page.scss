@@ -1,53 +1,165 @@
-*{
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-ion-toolbar {
-    --background: #f1a501;
-    --color: rgb(255, 255, 255);
-  }
-#conteiner-geral{
-  background: rgb(2,57,74);
-  background: linear-gradient(180deg, rgba(2,57,74,1) 18%, rgba(4,53,101,1) 66%);
-}
-#conteiner-1{
-  height: 40%;
-  display: grid;
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap');
+
+/* Estilo geral */
+body {
+  font-family: "Host Grotesk", sans-serif;
+  background: linear-gradient(45deg, #2D3E39, #2D3E39, #3f524a, #4b5f57);
+  background-size: 400% 400%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 15px;
+  justify-content: center;
+  height: 100vh;
+  animation: diagonalGradientAnimation 5s alternate infinite;
 }
 
-#conteiner-titulo{
+/* Animação do gradiente */
+@keyframes diagonalGradientAnimation {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.titulo{
+  color: #F4D7C4;
+  font-family: "Fugaz One", sans-serif;
+  font-weight: 400;
+  text-shadow: 4px 2px 4px rgba(0, 0, 0, 0.5);
+}
+/* Cabeçalho */
+#container-1 {
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.589);
-  border-radius: 25px;
-  color: #fff;
+  margin-bottom: 20px;
 }
-#conteiner-titulo h1{
-  font-size: 40px;
+
+#container-titulo h1 {
+  font-size: 2.5em;
+  margin: 0;
 }
-#conteiner-2{
-  height: 60%;
-  background-color: rgb(240, 240, 240);
-  padding-top: 20px;
-  border-radius: 25px 25px 0px 0px;
+
+.acesse{
+color: #F2E3D5;
+display: flex;
+justify-content: center;
+margin-top: -12px;
+font-size: 26px;
+font-weight: 400;
+font-family: "Mukta", sans-serif;
+
 }
-.box-input{
-  border-bottom: 2px solid #02394a;
+
+/* Formulário */
+#container-2 {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
 }
-.box-geral-input{
-  margin-bottom: 15px;
+
+/* Inputs */
+.box-geral-input ion-item {
+  --padding-start: 10px;
+  --inner-padding-end: 10px;
+  --min-height: 50px; /* Tamanho mínimo do campo */
+  --background: rgba(255, 255, 255, 0.2); /* Fundo do campo de input */
+  border-radius: 15px; /* Bordas arredondadas */
+  display: flex;
+  align-items: center; /* Alinha o conteúdo verticalmente */
+  justify-content: center; /* Centraliza o conteúdo horizontalmente */
 }
-ion-input{
-  background-color: transparent;
-  color: black;
-  font-weight: 500;
+
+/* Estilo dos inputs */
+.box-geral-input {
+  ion-input {
+    --color: #202020;
+    --placeholder-color: #5f5f5f;
+    --padding-start: 10px;   // Ajusta o padding interno à esquerda
+    --padding-end: 10px;     // Ajusta o padding interno à direita
+    --min-height: 30px;      // Altura mínima
+    --max-height: 40px;      // Altura máxima
+    width: 100%;              // Ajuste a largura
+    font-size: 18px;         // Tamanho da fonte
+    background-color: #dbdbdb;
+    border-radius: 20px;
+  }
 }
+
+
+
+
+/* Labels */
+.ion-label {
+  font-family: "Mukta", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  margin-left: 14px; /* Espaçamento maior à esquerda do label */
+  color: #F2E3D5;
+}
+
 ion-button{
-  margin-bottom: 25px;
+
+  --background: #5d796d;
+
 }
-#h2-grupo{
-  font-weight: lighter;
+/* Botões */
+.botao {
+  color: #F2E3D5;
+  font-family: "Mukta", sans-serif;
+  font-weight: 600;
+  margin-top: 10px;
+  border-radius: 5px;
+  padding: 10px 20px; /* Ajuste no tamanho do botão */
+  font-size: 18px; /* Tamanho menor de fonte */
+}
+
+.botao:hover {
+  transform: scale(1.05); /* Aumenta o tamanho do botão ao passar o mouse */
+}
+
+.botao-secundario {
+  color: #fff;
+  font-family: "Mukta", sans-serif;
+  font-weight: 600;
+  padding: 10px 20px; /* Ajuste no tamanho do botão */
+  font-size: 18px; /* Tamanho menor de fonte */
+}
+
+.botao-secundario:hover {
+  transform: scale(1.05); /* Aumenta o tamanho do botão ao passar o mouse */
+}
+
+/* Rodapé */
+#h2-grupo {
   text-align: center;
-  color: gray;
+  font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 15px;
+}
+
+/* Estilo para o texto "Ainda não tem conta?" */
+.criar_conta {
+  display: flex;
+  justify-content: center;
   font-size: 14px;
+  color: #F2E3D5;
+  margin-top: 15px;
+}
+
+.cadastro{
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  color: #F7D8A5;
+  display: flex;
+  justify-content: center;
+
 }

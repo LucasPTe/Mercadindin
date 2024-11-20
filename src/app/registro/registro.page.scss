@@ -1,46 +1,77 @@
-*{
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+
 /* ion-toolbar {
     --background: #f1a501;
     --color: rgb(255, 255, 255);
   } */
+  body {
+    background: linear-gradient(45deg, #2D3E39, #2D3E39, #3f524a, #4b5f57);
+    background-size: 400% 400%;
+    color: #fff;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    animation: diagonalGradientAnimation 5s linear infinite;
+  }
+  
+  /* Animação do gradiente */
+  @keyframes diagonalGradientAnimation {
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
 
-#conteiner-geral{
-  background: rgb(2,57,74);
-  background: linear-gradient(180deg, rgba(2,57,74,1) 18%, rgba(4,53,101,1) 66%);
-}
 #conteiner-titulo{
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.589);
   border-radius: 25px;
   color: #fff;
 }
 #conteiner-1{
-    height: 40%;
+    height: 25%;
     display: grid;
     align-items: center;
     padding: 15px;
 }
 #conteiner-2{
-    height: 60%;
-    background-color: rgb(240, 240, 240);
+    width: 100%;
+    height: 75%;
+    background-color: #f2e3d531;
     padding-top: 20px;
     border-radius: 25px 25px 0px 0px;
 }
 .box-input{
-  border-bottom: 2px solid #02394a;
+  font-family: "Mukta", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  border-bottom: 2px solid #BCC1BD;
 }
 .box-geral-input{
   margin-bottom: 15px;
 }
 ion-button{
-  margin-bottom: 25px;
+  --background:#4f665c;
+  color:#F7D8A5 ;
+  font-family: "Mukta", sans-serif;
+  font-weight: 600;
+  margin-bottom: 45px;
+  width: 60%;
+  margin: 0 auto; /* Isso centraliza o botão horizontalmente */
 }
 ion-input{
   background-color: transparent;
-  color: black;
-  font-weight: 500;
+  color: white;
+  font-family: "Mukta", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: #F2E3D5;
 }
 
 #h2-grupo{
@@ -48,4 +79,39 @@ ion-input{
   text-align: center;
   color: gray;
   font-size: 14px;
+}
+
+.criar_titulo{
+font-family: "Mukta", sans-serif;
+display: flex;
+justify-content: center;
+color: #d7dfd8;
+font-weight: 600;
+font-size: 26px;
+margin-top: -10px;
+margin-bottom: 25px;
+}
+
+.retorno_login{
+display: flex;
+justify-content: center;
+font-family: "Mukta", sans-serif;
+font-weight: 400;
+font-size: 18px;
+}
+
+a{
+  color: #F7D8A5;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.titulo{
+  font-size: 2.5em;
+  color: #F7D8A5;
+  font-family: "Fugaz One", sans-serif;
+  font-weight: 400;
+  text-shadow: 4px 2px 4px rgba(0, 0, 0, 0.5);
+
 }

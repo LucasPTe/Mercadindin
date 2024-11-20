@@ -1,35 +1,36 @@
 
 
-<!-- <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">registro</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
-<ion-img src="/Mercadindin/src/assets/images/mercadindin.png" ></ion-img>-->
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fugaz+One&family=Host+Grotesk:ital,wght@0,300;1,300&family=Mukta:wght@200;300;400;500;600;700;800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Host+Grotesk:ital,wght@0,500;1,500&family=Mukta:wght@200;300;400;500;600;700;800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> 
+</head>
+
+
 <body id="conteiner-geral">
 <header id="conteiner-1">
   <section id="conteiner-titulo">
-    <h1>Cadastre-se abaixo</h1>
+    <h1 class="titulo">MercaDinDin</h1>
   </section>
 </header>
-
 <form [formGroup]="regForm" (ngSubmit)="registrar()" id="conteiner-2">
   <div class="ion-padding">
     <ion-grid>
+      <h1 class="criar_titulo">Crie sua conta</h1>
+      <ion-row>
+        <ion-col class="box-geral-input">          
+            <ion-input formControlName="fullname" label="Nome Completo"labelPlacement="floating" type="text" placeholder="Nome de Usuário" class="box-input" required></ion-input>         
+        </ion-col>
+      </ion-row>
+      
       <ion-row>
         <ion-col class="box-geral-input">
             <ion-input  formControlName="email" label="E-mail"labelPlacement="floating" type="email" placeholder="E-mail" class="box-input" required></ion-input>         
         </ion-col>
       </ion-row>
 
-      <ion-row>
-        <ion-col class="box-geral-input">          
-            <ion-input formControlName="fullname" label="Nome de Usuário"labelPlacement="floating" type="text" placeholder="Nome de Usuário" class="box-input" required></ion-input>         
-        </ion-col>
-      </ion-row>
-      
       <ion-row>
         <ion-col class="box-geral-input">         
             <ion-input  formControlName="password"label="Senha"labelPlacement="floating" type="password" placeholder="Senha" maxlength="8" class="box-input" required></ion-input>         
@@ -41,7 +42,8 @@
         </ion-col>-->
       </ion-row>
       <ion-button expand="block" type="submit" [disabled]="!regForm.valid">Cadastrar</ion-button>
-      <ion-button expand="block" (click)="LoginPag()">Voltar</ion-button>
+      <p class="retorno_login">Já possui conta?</p>
+      <p class="retorno_login"><a href="">Acesse sua conta</a></p>
       </ion-grid>
   </div>
   <h2 id="h2-grupo">Create by grupo 5</h2>

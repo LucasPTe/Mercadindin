@@ -1,40 +1,69 @@
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header> -->
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fugaz+One&family=Host+Grotesk:ital,wght@0,300;1,300&family=Mukta:wght@200;300;400;500;600;700;800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Host+Grotesk:ital,wght@0,500;1,500&family=Mukta:wght@200;300;400;500;600;700;800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
 
-<!-- <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Login</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content> -->
-<body id="conteiner-geral">
-  <header id="conteiner-1">
-    <section id="conteiner-titulo">
-      <h1>Bem vindo!!</h1>
+
+<body id="container-geral">
+  <header id="container-1">
+    <section id="container-titulo">
+      <h1 class="titulo">MercaDinDin</h1>
     </section>
   </header>
 
-  <form [formGroup]="loginForm" (ngSubmit)="logar()" id="conteiner-2">
+  <br>
+
+  <form [formGroup]="loginForm" (ngSubmit)="logar()" id="container-2">
     <div class="ion-padding">
       <ion-grid>
         <ion-row>
-          <ion-col class="box-geral-input">            
-              <ion-input formControlName="email" label="E-mail"labelPlacement="floating" type="email" placeholder="E-mail" class="box-input"></ion-input>         
+          <ion-col class="box-geral-input">
+            <p class="acesse">Acesse sua conta</p>
+            <label class="ion-label" for="email">E-mail</label> <!-- Label acima do input -->
+            <ion-input 
+              formControlName="email" 
+              label=""
+              labelPlacement="floating" 
+              type="email" 
+              placeholder="E-mail" 
+              class="box-input">
+              <ion-label position="floating">E-mail</ion-label> <!-- Label separado para o input -->
+            </ion-input>
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col class="box-geral-input"> 
-              <ion-input formControlName="password"  label="Senha"labelPlacement="floating" type="password" placeholder="Senha" maxlength="8" class="box-input"></ion-input>            
+          <ion-col class="box-geral-input">
+            <label class="ion-label" for="senha">Senha</label> <!-- Label acima do input -->
+            <ion-input 
+              formControlName="password"  
+              label=""
+              labelPlacement="floating" 
+              type="password" 
+              placeholder="Senha" 
+              maxlength="8" 
+              class="box-input">
+              <ion-label position="floating">Senha</ion-label> <!-- Label separado para o input -->
+            </ion-input>
           </ion-col>
         </ion-row>
-        <ion-button expand="block" class="botao botao" type="submit"[disabled]="!loginForm.valid">Entrar</ion-button>
-        <ion-button expand="block" class="botao" (click)="RegistroPag()">Cadastre-se</ion-button>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" class="botao" type="submit" [disabled]="!loginForm.valid">
+              Entrar
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p class="criar_conta">Ainda não possui uma conta?</p>
+            <ion-label class="cadastro" (click)="RegistroPag()">Cadastre-se</ion-label>
+          </ion-col>
+        </ion-row>
       </ion-grid>
     </div>
-    <h2 id="h2-grupo">Create by grupo 5</h2>
+    <h2 id="h2-grupo">Criado pelo Grupo 5</h2>
   </form>
 </body>
