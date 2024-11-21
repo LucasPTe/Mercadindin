@@ -23,7 +23,15 @@ const routes: Routes = [
     path: 'post',
     loadChildren: () => import('./post/post.module').then( m => m.PostPageModule)
   },
+  {
+    path: 'editar-usuario',
+    loadChildren: () => import('./editar-usuario/editar-usuario.module').then( m => m.EditarUsuarioPageModule)
+  },
+
+  { path: 'edit-profile', loadChildren: () => import('./editar-usuario/editar-usuario.module').then(m => m.EditarUsuarioPageModule) },
+  // Outras rotas...
 ];
+
 
 @NgModule({
   imports: [

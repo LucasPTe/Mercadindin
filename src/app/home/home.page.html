@@ -1,24 +1,33 @@
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fugaz+One&family=Host+Grotesk:ital,wght@0,300;1,300&family=Mukta:wght@200;300;400;500;600;700;800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Host+Grotesk:ital,wght@0,500;1,500&family=Mukta:wght@200;300;400;500;600;700;800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
 <ion-app>
   <!-- Side Menu -->
   <ion-menu side="start" content-id="main-content">
     <ion-header>
       <ion-toolbar>
-        <ion-title>Menu</ion-title>
+        <div class="menu-header">
+          <!-- Círculo para a foto do usuário -->
+          <div class="user-photo" (click)="editProfile()">
+            <img [src]="userPhoto" alt="Foto do usuário" />
+          </div>
+          <!-- Saudação com o nome do usuário -->
+          <ion-label>Olá, {{ userName }}</ion-label>
+        </div>
       </ion-toolbar>
     </ion-header>
-
+  
     <ion-content>
       <ion-list>
-        <!-- Exibe a saudação com o e-mail do usuário logado -->
-        <ion-item>
-          <ion-label>Olá, {{ userEmail }}</ion-label> <!-- Exibe o e-mail do usuário -->
-        </ion-item>
-
         <ion-item button (click)="logoutUser()">
           <ion-icon slot="start" name="log-out"></ion-icon>
           Logout
         </ion-item>
-
       </ion-list>
     </ion-content>
   </ion-menu>

@@ -16,6 +16,9 @@ export class PostPage implements OnInit {
   productPrice: string = '';
   userEmail: string | null = null;
   description: string = '';
+  
+  // Imagem padrão (de exemplo)
+  defaultImage: string = 'assets/images/logo_mercadindin.png';
 
   // Lista de mercados pré-definidos
   markets: string[] = [
@@ -43,11 +46,11 @@ export class PostPage implements OnInit {
   }
 
   async salvarPost() {
-    if (!this.productTitle || !this.selectedMarket || !this.productPrice || !this.selectedImage) {
-      alert('Preencha todos os campos e insira uma imagem!');
+    if (!this.productTitle || !this.selectedMarket || !this.productPrice || !this.selectedImage || this.selectedImage === this.defaultImage) {
+      alert('Preencha todos os campos e insira uma imagem válida!');
       return;
     }
-  
+
     const newProduct = {
       title: this.productTitle,
       subtitle: this.selectedMarket,
@@ -56,7 +59,7 @@ export class PostPage implements OnInit {
       email: this.userEmail,
       description: this.description,
     };
-  
+
     try {
       const storedProducts = (await this.storage.get('products')) || []; // Recupera os produtos existentes ou inicializa uma lista vazia
       storedProducts.push(newProduct); // Adiciona o novo produto
@@ -86,14 +89,16 @@ export class PostPage implements OnInit {
     if (arquivo) {
       const leitor = new FileReader();
       leitor.onload = () => {
+        // Atualiza selectedImage com a imagem carregada
         this.selectedImage = leitor.result as string;
+        console.log('Imagem carregada: ', this.selectedImage);  // Para depuração
       };
-      leitor.readAsDataURL(arquivo);
+      leitor.readAsDataURL(arquivo); // Lê a imagem como URL de dados
     }
   }
 
   removerImagem() {
-    this.selectedImage = null;
+    this.selectedImage = null; // Limpa a imagem
   }
 
   enviarImagem() {

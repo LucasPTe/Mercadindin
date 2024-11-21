@@ -1,4 +1,32 @@
+
 ion-toolbar {
-    --background: #f1a501;
-    --color: rgb(255, 255, 255);
-  }
+    --background: #2D3E39;
+    --color: #F7D8A5;
+  font-family: "Host Grotesk", sans-serif;
+  font-weight: 400;
+  text-shadow: 4px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+ion-content{
+
+  --background: #BCC1BD;
+
+}
+
+.imp_foto{
+
+  --background: #4F665C;
+  color: #F2E3D5;
+  font-family: "Host Grotesk", sans-serif;
+
+}
+
+ion-list{
+  background-color:#BCC1BD; 
+}
+
+ion-item{
+  --background: #2D3E39;
+  margin-bottom:20px ;
+
+}

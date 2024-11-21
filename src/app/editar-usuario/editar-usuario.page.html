@@ -1,0 +1,48 @@
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fugaz+One&family=Host+Grotesk:ital,wght@0,300;1,300&family=Mukta:wght@200;300;400;500;600;700;800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Host+Grotesk:ital,wght@0,500;1,500&family=Mukta:wght@200;300;400;500;600;700;800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons class="seta" slot="start">
+      <ion-button [routerLink]="['/home']">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (submit)="saveChanges()">
+    <!-- Foto do usuário -->
+    <div class="photo-container">
+      <div class="user-photo">
+        <img [src]="userPhoto" alt="Foto do usuário">
+      </div>
+      <ion-button expand="block" (click)="changePhoto()">Alterar Foto</ion-button>
+    </div>
+
+    <!-- Campo para o nome -->
+    <ion-item class="campo">
+      <ion-label position="floating">Nome do caba</ion-label>
+      <ion-input [(ngModel)]="userName" name="name" readonly></ion-input> <!-- Tornando o campo somente leitura -->
+      <ion-icon name="create" slot="end" (click)="editUserName()"></ion-icon> <!-- Ícone de edição -->
+    </ion-item>
+
+    <!-- Campo para o email -->
+    <ion-item class="campo">
+      <ion-label position="floating">Email do caba</ion-label>
+      <ion-input [(ngModel)]="userEmail" name="email" type="email" readonly></ion-input> <!-- Tornando o campo somente leitura -->
+      <ion-icon name="create" slot="end" (click)="editUserEmail()"></ion-icon> <!-- Ícone de edição -->
+    </ion-item>
+
+    <!-- Botão de salvar -->
+    <ion-button expand="block" type="submit">Alterar Senha</ion-button>
+    <ion-button expand="block" type="submit">Salvar Alterações</ion-button>
+  </form>
+</ion-content>
