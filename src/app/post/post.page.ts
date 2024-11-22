@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -12,11 +13,13 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 export class PostPage implements OnInit {
   selectedImage: string | null = null;
   productTitle: string = '';
-  selectedMarket: string = ''; // Mercado selecionado
+  selectedMarket: string = '';
+  tempSelectedMarket: string = '';
   productPrice: string = '';
   userEmail: string | null = null;
   description: string = '';
-  
+  isModalOpen: boolean = false;
+
   // Imagem padrão (de exemplo)
   defaultImage: string = 'assets/images/logo_mercadindin.png';
 
@@ -30,7 +33,14 @@ export class PostPage implements OnInit {
     'Supermarket - Pilares'
   ];
 
+  // Lista de mercados filtrados (inicialmente igual à lista completa)
+  filteredMarkets: string[] = [...this.markets];
+
+  // Texto da barra de pesquisa
+  searchText: string = '';
+
   constructor(
+    private modalController: ModalController,
     private router: Router,
     private storage: Storage,
     private afAuth: AngularFireAuth
@@ -45,6 +55,31 @@ export class PostPage implements OnInit {
     });
   }
 
+  // Função para abrir o modal de seleção de mercado
+  openMarketSelectModal() {
+    this.tempSelectedMarket = this.selectedMarket; // Armazena o valor temporário
+    this.isModalOpen = true; // Abre o modal
+  }
+
+  // Função para fechar o modal
+  closeModal() {
+    this.isModalOpen = false; // Fecha o modal
+  }
+
+  // Função para confirmar a seleção do mercado
+  confirmSelection(selectedMarket: string) {
+    this.selectedMarket = selectedMarket; // Define o mercado selecionado
+    this.isModalOpen = false; // Fecha o modal
+  }
+
+  // Função para filtrar os mercados conforme o texto da pesquisa
+  filterMarkets() {
+    this.filteredMarkets = this.markets.filter(market =>
+      market.toLowerCase().includes(this.searchText.toLowerCase()) // Filtra com base no texto de pesquisa
+    );
+  }
+
+  // Função para salvar o post
   async salvarPost() {
     if (!this.productTitle || !this.selectedMarket || !this.productPrice || !this.selectedImage || this.selectedImage === this.defaultImage) {
       alert('Preencha todos os campos e insira uma imagem válida!');
@@ -71,6 +106,7 @@ export class PostPage implements OnInit {
     }
   }
 
+  // Função para tirar foto
   async tirarFoto() {
     try {
       const photo = await Camera.getPhoto({
@@ -78,14 +114,15 @@ export class PostPage implements OnInit {
         resultType: CameraResultType.DataUrl,
         source: CameraSource.Camera,
       });
-      this.selectedImage = photo.dataUrl || null;
+      this.selectedImage = photo.dataUrl || null; // Atualiza a imagem selecionada
     } catch (error) {
       console.error('Erro ao tirar foto:', error);
     }
   }
 
+  // Função para selecionar a imagem do arquivo
   imagemSelecionada(evento: any) {
-    const arquivo = evento.target.files[0];
+    const arquivo = evento.target.files[0]; // Obtém o arquivo da imagem
     if (arquivo) {
       const leitor = new FileReader();
       leitor.onload = () => {
@@ -97,10 +134,12 @@ export class PostPage implements OnInit {
     }
   }
 
+  // Função para remover a imagem
   removerImagem() {
     this.selectedImage = null; // Limpa a imagem
   }
 
+  // Função para abrir o seletor de arquivo de imagem
   enviarImagem() {
     const inputArquivo = document.getElementById('inputArquivo') as HTMLInputElement;
     inputArquivo.click();

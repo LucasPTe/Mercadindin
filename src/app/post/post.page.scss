@@ -1,32 +1,124 @@
 
+
 ion-toolbar {
-    --background: #2D3E39;
-    --color: #F7D8A5;
+  --background: #2D3E39;
+  --color: #F7D8A5;
   font-family: "Host Grotesk", sans-serif;
   font-weight: 400;
   text-shadow: 4px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-ion-content{
-
+ion-content {
   --background: #BCC1BD;
-
 }
 
-.imp_foto{
-
+.imp_foto {
   --background: #4F665C;
   color: #F2E3D5;
   font-family: "Host Grotesk", sans-serif;
-
 }
 
-ion-list{
-  background-color:#BCC1BD; 
+ion-list {
+  background-color: #BCC1BD;
+  display: flex;
+  flex-direction: column;
+  gap: 2px; /* Define um espaçamento uniforme entre os itens */
 }
 
-ion-item{
+ion-item {
   --background: #2D3E39;
-  margin-bottom:20px ;
+  width: 90%;
+  --color: #F2E3D5;
+  border-radius: 10px;
+  display: flex;
+  align-items: center; /* Alinha verticalmente os itens no centro */
+  justify-content: center; /* Alinha horizontalmente os itens no centro */
+  margin: auto;
+  padding: 0; /* Remove espaçamento interno */
+}
 
+.pesquisa{
+  margin-top: 15px;
+}
+
+ion-textarea {
+  font-family: "Host Grotesk", sans-serif;
+}
+
+.enviar_post {
+  --background: #2D3E39;
+  --color: #F7D8A5;
+  width: 60%;
+  margin: 20px auto;
+  font-weight: bold;
+  font-family: "Host Grotesk", sans-serif;
+  font-size: 17px;
+  text-align: center; /* Garante que o texto dentro do botão esteja centralizado */
+}
+
+ion-select {
+  font-family: "Host Grotesk", sans-serif;
+}
+
+ion-button {
+  text-align: center;
+}
+
+ion-back-button {
+  --color: #F7D8A5;
+}
+
+ion-modal {
+  position: fixed;
+  transform: none;
+  margin: auto;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  width: 90%;
+  overflow: hidden;
+  z-index: 1050;
+  padding: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  backface-visibility: unset;
+  will-change: unset;
+  backdrop-filter: none;  /* Remover qualquer desfoque do fundo */
+  filter: none !important; 
+  backdrop-filter: none/* Remover filtro de desfoque no modal */
+}
+
+.btn_confirmar{
+  --background: #2D3E39;
+  --color: #F7D8A5;
+  font-family: "Host Grotesk", sans-serif;
+  font-size: 17px;
+  width: 60%;
+  border-radius: 20px;
+  margin: 0 auto;
+}
+
+.titulo_modal{
+  font-family: "Host Grotesk", sans-serif;
+  font-size: 20px;
+
+}
+
+ion-icon{
+  font-size: 30px;
+}
+
+
+.itens_fora_modal{
+  --background: #2D3E39;
+  width: 90%;
+  border-radius:10px;
+  --color: #F2E3D5;
+  display: flex;
+  align-items: center; /* Alinha verticalmente os itens no centro */
+  justify-content: center; /* Alinha horizontalmente os itens no centro */
+  margin: 8px auto; /* Ajuste o valor conforme necessário */
+  padding: 0; /* Remove espaçamento interno */
+}
+
+.lupa{
+  font-size: 20px;
 }

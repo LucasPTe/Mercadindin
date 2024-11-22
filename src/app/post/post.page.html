@@ -1,15 +1,7 @@
-<head>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fugaz+One&family=Host+Grotesk:ital,wght@0,300;1,300&family=Mukta:wght@200;300;400;500;600;700;800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Host+Grotesk:ital,wght@0,500;1,500&family=Mukta:wght@200;300;400;500;600;700;800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-</head>
-
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button default-href="/src/app/home/home.page.html"></ion-back-button>
+      <ion-back-button default-href="/home"></ion-back-button>
     </ion-buttons>
     <ion-title>Criar uma postagem</ion-title>
   </ion-toolbar>
@@ -37,7 +29,7 @@
 
   <!-- Input para o título do produto -->
   <ion-list>
-    <ion-item>
+    <ion-item class="itens_fora_modal">
       <ion-textarea
         label="Título do Produto"
         label-placement="floating"
@@ -49,18 +41,45 @@
     </ion-item>
 
     <!-- Menu suspenso para seleção do mercado -->
-    <ion-item>
-      <ion-select
-        label="Mercado"
-        label-placement="floating"
-        [(ngModel)]="selectedMarket"
-        placeholder="Selecione um mercado">
-        <ion-select-option *ngFor="let market of markets" [value]="market">{{ market }}</ion-select-option>
-      </ion-select>
+    <ion-item class="itens_fora_modal" (click)="openMarketSelectModal()">
+      <ion-label>Selecione o estabelecimento</ion-label>
+      <ion-input [value]="selectedMarket" readonly></ion-input>
     </ion-item>
-
+    
+    <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Selecionar Mercado</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="closeModal()">Fechar</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+    
+        <ion-content>
+          <!-- Barra de pesquisa -->
+          <ion-item class="pesquisa">
+            <ion-input 
+              [(ngModel)]="searchText" 
+              placeholder="Pesquise um mercado" 
+              (ionInput)="filterMarkets()">
+            </ion-input>
+            <ion-icon class="lupa" name="search-outline" slot="end"></ion-icon>
+          </ion-item>
+    
+          <!-- Lista de mercados filtrados -->
+          <ion-list>
+            <ion-item *ngFor="let market of filteredMarkets" (click)="confirmSelection(market)">
+              {{ market }}
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+    
     <!-- Input para o preço -->
-    <ion-item>
+    <ion-item class="itens_fora_modal">
       <ion-textarea
         label="Preço"
         label-placement="floating"
@@ -70,18 +89,18 @@
         required>
       </ion-textarea>
     </ion-item>
+
+    <ion-item class="itens_fora_modal">
+      <ion-textarea
+        class="descricao" 
+        label="Descrição" 
+        label-placement="floating" 
+        placeholder="Adicione uma descrição" 
+        [(ngModel)]="description">
+      </ion-textarea>
+    </ion-item>
   </ion-list>
 
-  <ion-item>
-    <ion-textarea 
-      label="Descrição" 
-      label-placement="floating" 
-      placeholder="Adicione uma descrição" 
-      [(ngModel)]="description">
-    </ion-textarea>
-  </ion-item>
-
   <!-- Botão para salvar o post -->
-  <ion-button expand="full" (click)="salvarPost()">Salvar Post</ion-button>
+  <ion-button class="enviar_post" expand="full" (click)="salvarPost()">Publicar</ion-button>
 </ion-content>
-
