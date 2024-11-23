@@ -15,15 +15,13 @@ export class PostPage implements OnInit {
   productTitle: string = '';
   selectedMarket: string = '';
   tempSelectedMarket: string = '';
-  productPrice: string = '';
+  productPrice: string = 'R$ 0,00'; // Inicializa com o valor padrão
   userEmail: string | null = null;
   description: string = '';
   isModalOpen: boolean = false;
 
-  // Imagem padrão (de exemplo)
   defaultImage: string = 'assets/images/logo_mercadindin.png';
 
-  // Lista de mercados pré-definidos
   markets: string[] = [
     'Guanabara - Bonsucesso',
     'Guanabara - Penha',
@@ -33,10 +31,8 @@ export class PostPage implements OnInit {
     'Supermarket - Pilares'
   ];
 
-  // Lista de mercados filtrados (inicialmente igual à lista completa)
   filteredMarkets: string[] = [...this.markets];
 
-  // Texto da barra de pesquisa
   searchText: string = '';
 
   constructor(
@@ -47,7 +43,6 @@ export class PostPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Obter o e-mail do usuário logado
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userEmail = user.email;
@@ -55,31 +50,40 @@ export class PostPage implements OnInit {
     });
   }
 
-  // Função para abrir o modal de seleção de mercado
   openMarketSelectModal() {
-    this.tempSelectedMarket = this.selectedMarket; // Armazena o valor temporário
-    this.isModalOpen = true; // Abre o modal
+    this.tempSelectedMarket = this.selectedMarket;
+    this.isModalOpen = true;
   }
 
-  // Função para fechar o modal
   closeModal() {
-    this.isModalOpen = false; // Fecha o modal
+    this.isModalOpen = false;
   }
 
-  // Função para confirmar a seleção do mercado
   confirmSelection(selectedMarket: string) {
-    this.selectedMarket = selectedMarket; // Define o mercado selecionado
-    this.isModalOpen = false; // Fecha o modal
+    this.selectedMarket = selectedMarket;
+    this.isModalOpen = false;
   }
 
-  // Função para filtrar os mercados conforme o texto da pesquisa
   filterMarkets() {
     this.filteredMarkets = this.markets.filter(market =>
-      market.toLowerCase().includes(this.searchText.toLowerCase()) // Filtra com base no texto de pesquisa
+      market.toLowerCase().includes(this.searchText.toLowerCase())
     );
   }
 
-  // Função para salvar o post
+  // Função para formatar o preço no formato de moeda
+  formatCurrency(value: string) {
+    // Remove caracteres não numéricos
+    const numericValue = value.replace(/[^\d]/g, '');
+    const formattedValue = (parseInt(numericValue, 10) / 100).toFixed(2); // Divide por 100 para formatar como centavos
+    return `R$ ${formattedValue.replace('.', ',')}`;
+  }
+
+  // Função chamada a cada digitação no campo de preço
+  onPriceChange(event: any) {
+    const inputValue = event.target.value;
+    this.productPrice = this.formatCurrency(inputValue);
+  }
+
   async salvarPost() {
     if (!this.productTitle || !this.selectedMarket || !this.productPrice || !this.selectedImage || this.selectedImage === this.defaultImage) {
       alert('Preencha todos os campos e insira uma imagem válida!');
@@ -89,24 +93,23 @@ export class PostPage implements OnInit {
     const newProduct = {
       title: this.productTitle,
       subtitle: this.selectedMarket,
-      price: this.productPrice,
+      price: this.productPrice, // Mantém o preço formatado corretamente
       image: this.selectedImage,
       email: this.userEmail,
       description: this.description,
     };
 
     try {
-      const storedProducts = (await this.storage.get('products')) || []; // Recupera os produtos existentes ou inicializa uma lista vazia
-      storedProducts.push(newProduct); // Adiciona o novo produto
-      await this.storage.set('products', storedProducts); // Salva os produtos atualizados no Storage
-      console.log('Produto salvo com sucesso:', newProduct); // Log para depuração
-      this.router.navigate(['/home']); // Navega para a página inicial
+      const storedProducts = (await this.storage.get('products')) || [];
+      storedProducts.push(newProduct);
+      await this.storage.set('products', storedProducts);
+      console.log('Produto salvo com sucesso:', newProduct);
+      this.router.navigate(['/home']);
     } catch (error) {
       console.error('Erro ao salvar o post:', error);
     }
   }
 
-  // Função para tirar foto
   async tirarFoto() {
     try {
       const photo = await Camera.getPhoto({
@@ -114,32 +117,30 @@ export class PostPage implements OnInit {
         resultType: CameraResultType.DataUrl,
         source: CameraSource.Camera,
       });
-      this.selectedImage = photo.dataUrl || null; // Atualiza a imagem selecionada
+      this.selectedImage = photo.dataUrl || null;
     } catch (error) {
       console.error('Erro ao tirar foto:', error);
     }
   }
 
-  // Função para selecionar a imagem do arquivo
   imagemSelecionada(evento: any) {
-    const arquivo = evento.target.files[0]; // Obtém o arquivo da imagem
+    const arquivo = evento.target.files[0];
     if (arquivo) {
       const leitor = new FileReader();
       leitor.onload = () => {
-        // Atualiza selectedImage com a imagem carregada
         this.selectedImage = leitor.result as string;
-        console.log('Imagem carregada: ', this.selectedImage);  // Para depuração
+        console.log('Imagem carregada: ', this.selectedImage);
       };
-      leitor.readAsDataURL(arquivo); // Lê a imagem como URL de dados
+      leitor.readAsDataURL(arquivo);
     }
   }
 
-  // Função para remover a imagem
   removerImagem() {
-    this.selectedImage = null; // Limpa a imagem
+    if (this.selectedImage && this.selectedImage !== this.defaultImage) {
+      this.selectedImage = null;
+    }
   }
 
-  // Função para abrir o seletor de arquivo de imagem
   enviarImagem() {
     const inputArquivo = document.getElementById('inputArquivo') as HTMLInputElement;
     inputArquivo.click();

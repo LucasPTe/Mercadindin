@@ -1,3 +1,11 @@
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fugaz+One&family=Host+Grotesk:ital,wght@0,300;1,300&family=Mukta:wght@200;300;400;500;600;700;800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Host+Grotesk:ital,wght@0,500;1,500&family=Mukta:wght@200;300;400;500;600;700;800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -8,9 +16,6 @@
 </ion-header>
 
 <ion-content>
-  <!-- Botão para remover a imagem, mas ignorar se a imagem for a padrão -->
-  <ion-button color="danger" *ngIf="selectedImage && selectedImage !== defaultImage" (click)="removerImagem()">Remover Imagem</ion-button>
-
   <!-- Exibição da imagem selecionada ou imagem padrão -->
   <img [src]="selectedImage || defaultImage" *ngIf="selectedImage || !selectedImage" alt="Imagem do produto" />
 
@@ -24,50 +29,47 @@
     </ion-col>
   </ion-row>
 
+  <!-- Botão para remover a imagem, mas ignorar se a imagem for a padrão -->
+  <ion-button class="remove" color="danger" *ngIf="selectedImage && selectedImage !== defaultImage" (click)="removerImagem()">Remover Imagem</ion-button>
+
   <!-- Input de arquivo para selecionar imagem -->
-  <input type="file" (change)="imagemSelecionada($event)" accept="image/*" hidden id="inputArquivo"/>
+  <input type="file" (change)="imagemSelecionada($event)" accept="image/*" hidden id="inputArquivo" />
 
   <!-- Input para o título do produto -->
   <ion-list>
     <ion-item class="itens_fora_modal">
-      <ion-textarea
-        label="Título do Produto"
-        label-placement="floating"
-        placeholder="Ex.: Arroz Branco - Marca X"    
-        [(ngModel)]="productTitle"
-        maxlength="35"
-        required>
+      <ion-textarea class="textarea-pequeno" label="Título do Produto" label-placement="floating" placeholder="Ex.: Arroz Branco - Marca X" [(ngModel)]="productTitle" maxlength="35" required>
       </ion-textarea>
     </ion-item>
 
     <!-- Menu suspenso para seleção do mercado -->
     <ion-item class="itens_fora_modal" (click)="openMarketSelectModal()">
-      <ion-label>Selecione o estabelecimento</ion-label>
-      <ion-input [value]="selectedMarket" readonly></ion-input>
+      <ion-label *ngIf="!selectedMarket">Selecione o estabelecimento</ion-label>
+      <ion-input [value]="selectedMarket" readonly *ngIf="selectedMarket"></ion-input>
     </ion-item>
-    
+
+
     <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
       <ng-template>
         <ion-header>
           <ion-toolbar>
             <ion-title>Selecionar Mercado</ion-title>
             <ion-buttons slot="end">
-              <ion-button (click)="closeModal()">Fechar</ion-button>
+              <ion-button (click)="closeModal()">
+                <ion-icon name="close"></ion-icon>
+              </ion-button>
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
-    
+
         <ion-content>
           <!-- Barra de pesquisa -->
           <ion-item class="pesquisa">
-            <ion-input 
-              [(ngModel)]="searchText" 
-              placeholder="Pesquise um mercado" 
-              (ionInput)="filterMarkets()">
+            <ion-input [(ngModel)]="searchText" placeholder="Pesquise um mercado" (ionInput)="filterMarkets()">
             </ion-input>
             <ion-icon class="lupa" name="search-outline" slot="end"></ion-icon>
           </ion-item>
-    
+
           <!-- Lista de mercados filtrados -->
           <ion-list>
             <ion-item *ngFor="let market of filteredMarkets" (click)="confirmSelection(market)">
@@ -77,28 +79,18 @@
         </ion-content>
       </ng-template>
     </ion-modal>
-    
+
     <!-- Input para o preço -->
     <ion-item class="itens_fora_modal">
-      <ion-textarea
-        label="Preço"
-        label-placement="floating"
-        placeholder="Ex.: R$ 5,99"
-        [(ngModel)]="productPrice"
-        maxlength="15"
-        required>
+      <ion-textarea class="textarea_preco" label="Preço" label-placement="floating" placeholder="Ex.: R$ 5,99" [(ngModel)]="productPrice" maxlength="15" (ionInput)="onPriceChange($event)" required>
       </ion-textarea>
     </ion-item>
 
     <ion-item class="itens_fora_modal">
-      <ion-textarea
-        class="descricao" 
-        label="Descrição" 
-        label-placement="floating" 
-        placeholder="Adicione uma descrição" 
-        [(ngModel)]="description">
+      <ion-textarea class="descricao" label="Descrição" label-placement="floating" placeholder="Adicione uma descrição" [(ngModel)]="description">
       </ion-textarea>
     </ion-item>
+
   </ion-list>
 
   <!-- Botão para salvar o post -->

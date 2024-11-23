@@ -30,9 +30,6 @@ ion-item {
   width: 90%;
   --color: #F2E3D5;
   border-radius: 10px;
-  display: flex;
-  align-items: center; /* Alinha verticalmente os itens no centro */
-  justify-content: center; /* Alinha horizontalmente os itens no centro */
   margin: auto;
   padding: 0; /* Remove espaçamento interno */
 }
@@ -99,6 +96,7 @@ ion-modal {
 .titulo_modal{
   font-family: "Host Grotesk", sans-serif;
   font-size: 20px;
+  font-weight: bold;
 
 }
 
@@ -121,4 +119,47 @@ ion-icon{
 
 .lupa{
   font-size: 20px;
+  color: #F7D8A5;
+}
+
+.btn_fechar{
+  font-size: 35px;
+}
+
+ion-title{
+  font-family: "Host Grotesk", sans-serif;
+  font-weight: bold;
+
+}
+
+.sel_estab{
+  font-family: "Host Grotesk", sans-serif;
+  font-size: 15px;
+  color: #F2E3D5;
+  flex: 1;
+
+}
+
+.textarea-pequeno {
+  height: 40px; /* Altura reduzida */
+  font-size: 16px; /* Tamanho menor da fonte */
+
+  --padding-end: 8px;
+  --padding-top: 10px; /* Menor espaçamento superior */
+  --padding-bottom: 4px;
+  top: -4px ;
+}
+
+.textarea_preco{
+  margin-bottom: -20px;
+
+}
+
+.remove{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 60%;
+  margin: 0 auto;
 }

@@ -3,25 +3,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fugaz+One&family=Host+Grotesk:ital,wght@0,300;1,300&family=Mukta:wght@200;300;400;500;600;700;800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Host+Grotesk:ital,wght@0,500;1,500&family=Mukta:wght@200;300;400;500;600;700;800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
 <ion-app>
-  <!-- Side Menu -->
+  <!-- Menu Lateral -->
   <ion-menu side="start" content-id="main-content">
     <ion-header>
       <ion-toolbar>
         <div class="menu-header">
-          <!-- Círculo para a foto do usuário -->
+          <!-- Foto do usuário -->
           <div class="user-photo" (click)="editProfile()">
             <img [src]="userPhoto" alt="Foto do usuário" />
           </div>
-          <!-- Saudação com o nome do usuário -->
+          <!-- Saudação ao usuário -->
           <ion-label>Olá, {{ userName }}</ion-label>
         </div>
       </ion-toolbar>
     </ion-header>
-  
+
     <ion-content>
       <ion-list>
         <ion-item button (click)="logoutUser()">
@@ -32,7 +31,7 @@
     </ion-content>
   </ion-menu>
 
-  <!-- Main Content -->
+  <!-- Conteúdo Principal -->
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
@@ -43,49 +42,45 @@
   </ion-header>
 
   <ion-content id="main-content">
-    <!-- Seção de cards -->
+    <!-- Seção de Cards -->
     <ion-card *ngFor="let product of products">
-      <ion-card-header>
-        <ion-card-title>{{ product.title }}</ion-card-title>
-        <ion-card-subtitle>{{ product.subtitle }}</ion-card-subtitle>
-      </ion-card-header>
       <ion-card-content>
-        <ion-list>
-          <ion-item>
-            <ion-thumbnail slot="start">
-              <img [src]="product.image" [alt]="product.title" class="img_card" />
-            </ion-thumbnail>
-            <ion-label>{{ product.price }}</ion-label>
-            <ion-button expand="block" (click)="setOpen(true, product)">Ver mais</ion-button>
-          </ion-item>
-        </ion-list>
+        <div class="row">
+          <ion-thumbnail slot="start" class="thumbnail-left">
+            <img [src]="product.image" [alt]="product.title" class="img_card" />
+          </ion-thumbnail>
+          <div class="info-right">
+            <ion-card-subtitle class="subtitulo_produto">{{ product.subtitle }}</ion-card-subtitle>
+            <ion-card-title class="titulo_produto">{{ product.title }}</ion-card-title>
+            <ion-label class="preco">{{ product.price }}</ion-label>
+            <ion-button class="btn_ver" expand="block" (click)="setOpen(true, product)">Ver mais</ion-button>
+          </div>
+        </div>
       </ion-card-content>
     </ion-card>
+
 
     <!-- Modal -->
     <ion-modal [isOpen]="isModalOpen">
       <ng-template>
         <ion-header>
           <ion-toolbar>
-            <ion-title>{{ selectedProduct?.title }}</ion-title>
+            <ion-title>MercaDinDin</ion-title>
             <ion-buttons slot="end">
               <ion-button (click)="setOpen(false)">Fechar</ion-button>
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
-          <p><strong>Postado por:</strong> {{ selectedProduct?.email }}</p> <!-- Exibir o e-mail -->
+          <p class="postado"><strong>Postado por:</strong> {{ selectedProduct?.email }}</p>
           <img [src]="selectedProduct?.image" [alt]="selectedProduct?.title" class="img_card_modal">
+          <ion-label class="teste">
+            <a [href]="generateMapLink(selectedProduct?.subtitle)" target="_blank" rel="noopener noreferrer">
+              {{ selectedProduct?.subtitle }}
+            </a>
+          </ion-label>
           <p><strong>Descrição:</strong> {{ selectedProduct?.description }}</p>
           <ion-item lines="none">
-            <ion-label>
-              <a
-                [href]="generateMapLink(selectedProduct?.subtitle)"
-                target="_blank"
-                rel="noopener noreferrer">
-                {{ selectedProduct?.subtitle }}
-              </a>
-            </ion-label>
           </ion-item>
           <p><strong>Preço:</strong> {{ selectedProduct?.price }}</p>
         </ion-content>
