@@ -1,0 +1,54 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+    background: linear-gradient(45deg, #2D3E39, #2D3E39, #3f524a, #4b5f57);
+    background-size: 400% 400%;
+    animation: diagonalGradientAnimation 7s alternate infinite;
+  }
+
+  @keyframes diagonalGradientAnimation {
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+  
+  h1 {
+    margin: 0;
+    animation: zoomInEffect 0.7s ease-in-out, moveToTop 1s ease-in-out forwards 1s;
+    color: #F4D7C4;
+    font-family: "Fugaz One", sans-serif;
+    font-weight: 400;
+    text-shadow: 4px 2px 4px rgba(0, 0, 0, 0.5);
+    font-size: 32px;
+  }
+  
+  @keyframes zoomInEffect {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes moveToTop {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-43vh);
+    }
+  }
+  
