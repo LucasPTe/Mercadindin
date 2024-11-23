@@ -29,6 +29,9 @@ export class HomePage implements OnInit {
     const storedProducts = await this.storage.get('products');
     this.products = storedProducts || [];
     console.log('Produtos carregados ao entrar na página:', this.products);
+
+    // Carregar a foto do usuário quando a página é exibida
+    await this.loadUserPhoto();
   }
 
   async ngOnInit() {
@@ -51,10 +54,30 @@ export class HomePage implements OnInit {
         this.userEmail = userDetails.email;
         this.userName = userDetails.displayName || 'Nome não definido'; // Definindo o nome do usuário
         this.userPhoto = userDetails.photoURL || 'assets/user-default.png'; // Definindo a foto do usuário
+        // Salvar a foto no Storage
+        this.saveUserPhoto(userDetails.photoURL);
       } else {
         console.log('Nenhum usuário autenticado.'); // Caso o usuário não esteja autenticado
       }
     });
+  }
+
+  // Função para salvar a foto do usuário no Ionic Storage
+  async saveUserPhoto(photoURL: string | null) {
+    if (photoURL) {
+      await this.storage.set('userPhoto_' + this.userEmail, photoURL); // Salva a foto no Storage
+      console.log('Foto do usuário salva no Storage');
+    }
+  }
+
+  // Função para carregar a foto do usuário do Ionic Storage
+  async loadUserPhoto() {
+    if (this.userEmail) {
+      const storedPhoto = await this.storage.get('userPhoto_' + this.userEmail);
+      if (storedPhoto) {
+        this.userPhoto = storedPhoto; // Atualiza a foto do usuário
+      }
+    }
   }
 
   async addProduct(product: any) {
