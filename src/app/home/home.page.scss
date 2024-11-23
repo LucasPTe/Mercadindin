@@ -89,6 +89,7 @@ ion-label {
   width: 60%;
   margin: auto;
   display: block;
+  border-radius: 10px;
 }
 #conteiner-principal{
   justify-content: start;
@@ -199,7 +200,60 @@ ion-card-title {
 }
 
 .teste{
+  border-radius: 10px;
+  color: #F2E3D5;
+  --background: #2d3e39;
+  line-height: 1.5; /* Aumenta a altura da linha para melhor legibilidade */ 
+  max-width: 400px;
+  font-family: "Host Grotesk", sans-serif;
+}
 
-  --background: red;
+.desc_title{
+  font-family: "Host Grotesk", sans-serif;
+  margin-bottom: 10px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.texto_desc{
+  margin-top: 8px;
+  margin-left: 5px;
+}
+
+.preco_text{
+  font-family: "Host Grotesk", sans-serif;
+  color: #F2E3D5;
+  font-size: 20px;
+}
+
+.preco_m{
+  font-family: "Host Grotesk", sans-serif;
+  color: #000000;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.btn_leva{
+  text-decoration: none;
+  padding: 10px;
+  width: 40%;
+  background-color: #2d3e39;  
+  color: #F2E3D5;
+  border-radius: 10px;
+  font-weight: bold;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.add{
+  border-radius: 40px;
+  --background:#2d3e39;
+  background-color: #2d3e39;
+}
+
+.mais{
+
+  color:#F7D8A5;
 
 }

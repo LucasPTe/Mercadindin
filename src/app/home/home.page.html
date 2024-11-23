@@ -67,29 +67,29 @@
           <ion-toolbar>
             <ion-title>MercaDinDin</ion-title>
             <ion-buttons slot="end">
-              <ion-button (click)="setOpen(false)">Fechar</ion-button>
+              <ion-button (click)="setOpen(false)">
+                <ion-icon name="close"></ion-icon>
+              </ion-button>
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
-          <p class="postado"><strong>Postado por:</strong> {{ selectedProduct?.email }}</p>
           <img [src]="selectedProduct?.image" [alt]="selectedProduct?.title" class="img_card_modal">
-          <ion-label class="teste">
-            <a [href]="generateMapLink(selectedProduct?.subtitle)" target="_blank" rel="noopener noreferrer">
-              {{ selectedProduct?.subtitle }}
-            </a>
-          </ion-label>
-          <p><strong>Descrição:</strong> {{ selectedProduct?.description }}</p>
-          <ion-item lines="none">
+          <p class="desc_title">Descrição:</p>
+          <ion-item class="teste" lines="none">
+            <p class="texto_desc">{{ selectedProduct?.description }}</p>
           </ion-item>
-          <p><strong>Preço:</strong> {{ selectedProduct?.price }}</p>
+          <p class="preco_m"><strong class="preco_text">Preço:</strong> {{ selectedProduct?.price }}</p>
+          <p class="postado"><strong>Postado por:</strong> {{ selectedProduct?.email }}</p>
+          <p>{{ selectedProduct?.subtitle }}</p>
+          <a [href]="generateMapLink(selectedProduct?.subtitle)" target="_blank" rel="noopener noreferrer" class="button btn_leva">Me leve até lá</a>
         </ion-content>
       </ng-template>
     </ion-modal>
 
     <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-      <ion-fab-button (click)="PostPag()">
-        <ion-icon name="add"></ion-icon>
+      <ion-fab-button class="add" (click)="PostPag()">
+        <ion-icon name="add" class="mais"></ion-icon>
       </ion-fab-button>
     </ion-fab>
   </ion-content>
