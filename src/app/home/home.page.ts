@@ -123,4 +123,7 @@ export class HomePage implements OnInit {
   editProfile() {
     this.router.navigate(['/edit-profile']); // Rota para a página de edição
   }
+  devs() {
+    this.router.navigate(['/desenvolvedores']); // Rota para a página de edição
+  }
 }
