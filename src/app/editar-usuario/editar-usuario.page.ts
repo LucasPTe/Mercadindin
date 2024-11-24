@@ -139,7 +139,7 @@ export class EditarUsuarioPage implements OnInit {
       this.newPassword = '';
       this.currentPassword = ''; // Limpar campo de senha atual após salvar
     } catch (error) {
-      this.presentToast('Erro ao salvar alterações: ' + (error as Error).message);
+      
     }
   }
 

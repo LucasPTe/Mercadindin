@@ -30,18 +30,20 @@
     <!-- Campo para o nome -->
     <ion-item class="campo">
       <ion-label position="floating">Seu Nome</ion-label>
-      <ion-input [(ngModel)]="userName" name="name" [readonly]="!isEditingName"></ion-input> <!-- Edição controlada -->
-      <ion-icon 
-        [name]="isEditingName ? 'checkmark' : 'create'" 
-        slot="end" 
-        (click)="toggleEdit('name')">
-      </ion-icon>
+      <ion-input [(ngModel)]="userName" name="name" [readonly]="!isEditingName"></ion-input>
+    </ion-item>
+    
+        <!-- Campo para o e-mail -->
+    <ion-item class="campo">
+      <ion-label position="floating">Seu E-mail</ion-label>
+      <ion-input [value]="userEmail" class="campo-email" readonly></ion-input>
     </ion-item>
 
     <!-- Campo para a senha atual -->
     <ion-item class="campo">
       <ion-label position="floating">Senha Atual</ion-label>
-      <ion-input [(ngModel)]="currentPassword" name="currentPassword" type="password" [readonly]="!isEditingPassword" class="Inputs"></ion-input>
+      <ion-input [(ngModel)]="currentPassword" name="currentPassword" type="password" [readonly]="!isEditingPassword" class="Inputs" maxlength="8"
+      minlength="8"></ion-input>
       <ion-icon 
         [name]="isEditingPassword ? 'checkmark' : 'create'" 
         slot="end" 
@@ -52,7 +54,8 @@
     <!-- Campo para a nova senha -->
     <ion-item class="campo">
       <ion-label position="floating">Nova Senha</ion-label>
-      <ion-input [(ngModel)]="newPassword" name="newPassword" type="password" [readonly]="!isEditingPassword" class="Inputs"></ion-input>
+      <ion-input [(ngModel)]="newPassword" name="newPassword" type="password" [readonly]="!isEditingPassword" class="Inputs" maxlength="8"
+      minlength="8"></ion-input>
       <ion-icon 
         [name]="isEditingPassword ? 'checkmark' : 'create'" 
         slot="end" 
@@ -61,7 +64,7 @@
     </ion-item>
 
     <!-- Botão de salvar -->
-    <ion-button expand="block" type="submit" [disabled]="!changesMade">Salvar Alterações</ion-button>
+    <ion-button expand="block" type="submit" [disabled]="!changesMade">Alterar senha</ion-button>
     </div>
   </form>
 </ion-content>
