@@ -12,6 +12,9 @@ import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 
 import { environment } from 'src/environments/environment'
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +23,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
     
     IonicModule.forRoot(),
     AppRoutingModule,
+    AngularFirestoreModule,
     AngularFireModule,
     AngularFireAuthModule,AngularFireModule.initializeApp(environment.firebaseConfig),
     IonicStorageModule.forRoot()

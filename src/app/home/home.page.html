@@ -46,7 +46,7 @@
   </ion-header>
 
   <ion-content id="main-content">
-    <!-- Seção de Cards -->
+    <!-- Seção de Cards de Produtos -->
     <ion-card *ngFor="let product of products">
       <ion-card-content>
         <div class="row">
@@ -63,6 +63,22 @@
       </ion-card-content>
     </ion-card>
 
+    <!-- Seção de Posts (Firestore) -->
+    <ion-card *ngFor="let post of posts">
+      <ion-card-content>
+        <div class="row">
+          <ion-thumbnail slot="start" class="thumbnail-left">
+            <img [src]="post.image || 'assets/images/default-image.png'" [alt]="post.title" class="img_card" />
+          </ion-thumbnail>
+          <div class="info-right">
+            <ion-card-subtitle class="subtitulo_produto">{{ post.subtitle }}</ion-card-subtitle>
+            <ion-card-title class="titulo_produto">{{ post.title }}</ion-card-title>
+            <ion-label class="preco">{{ post.price }}</ion-label>
+            <ion-button class="btn_ver" expand="block" (click)="setOpen(true, post)">Ver mais</ion-button>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
 
     <!-- Modal -->
     <ion-modal [isOpen]="isModalOpen">
@@ -91,6 +107,7 @@
       </ng-template>
     </ion-modal>
 
+    <!-- Botão Flutuante -->
     <ion-fab slot="fixed" vertical="bottom" horizontal="end">
       <ion-fab-button class="add" (click)="PostPag()">
         <ion-icon name="add" class="mais"></ion-icon>

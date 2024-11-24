@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { Storage } from '@ionic/storage-angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { PostService } from '../services/post.service';
 
 @Component({
   selector: 'app-post',
@@ -15,7 +15,7 @@ export class PostPage implements OnInit {
   productTitle: string = '';
   selectedMarket: string = '';
   tempSelectedMarket: string = '';
-  productPrice: string = 'R$ 0,00'; // Inicializa com o valor padrão
+  productPrice: string = 'R$ 0,00';
   userEmail: string | null = null;
   description: string = '';
   isModalOpen: boolean = false;
@@ -28,18 +28,17 @@ export class PostPage implements OnInit {
     'Guanabara - Engenho da rainha',
     'Supermarket - Bonsucesso',
     'Supermarket - Maria da graça',
-    'Supermarket - Pilares'
+    'Supermarket - Pilares',
   ];
 
   filteredMarkets: string[] = [...this.markets];
-
   searchText: string = '';
 
   constructor(
     private modalController: ModalController,
     private router: Router,
-    private storage: Storage,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private postService: PostService
   ) {}
 
   ngOnInit() {
@@ -65,27 +64,30 @@ export class PostPage implements OnInit {
   }
 
   filterMarkets() {
-    this.filteredMarkets = this.markets.filter(market =>
+    this.filteredMarkets = this.markets.filter((market) =>
       market.toLowerCase().includes(this.searchText.toLowerCase())
     );
   }
 
-  // Função para formatar o preço no formato de moeda
   formatCurrency(value: string) {
-    // Remove caracteres não numéricos
     const numericValue = value.replace(/[^\d]/g, '');
-    const formattedValue = (parseInt(numericValue, 10) / 100).toFixed(2); // Divide por 100 para formatar como centavos
+    const formattedValue = (parseInt(numericValue, 10) / 100).toFixed(2);
     return `R$ ${formattedValue.replace('.', ',')}`;
   }
 
-  // Função chamada a cada digitação no campo de preço
   onPriceChange(event: any) {
     const inputValue = event.target.value;
     this.productPrice = this.formatCurrency(inputValue);
   }
 
   async salvarPost() {
-    if (!this.productTitle || !this.selectedMarket || !this.productPrice || !this.selectedImage || this.selectedImage === this.defaultImage) {
+    if (
+      !this.productTitle ||
+      !this.selectedMarket ||
+      !this.productPrice ||
+      !this.selectedImage ||
+      this.selectedImage === this.defaultImage
+    ) {
       alert('Preencha todos os campos e insira uma imagem válida!');
       return;
     }
@@ -93,20 +95,20 @@ export class PostPage implements OnInit {
     const newProduct = {
       title: this.productTitle,
       subtitle: this.selectedMarket,
-      price: this.productPrice, // Mantém o preço formatado corretamente
+      price: this.productPrice,
       image: this.selectedImage,
       email: this.userEmail,
       description: this.description,
+      createdAt: new Date(),
     };
 
     try {
-      const storedProducts = (await this.storage.get('products')) || [];
-      storedProducts.push(newProduct);
-      await this.storage.set('products', storedProducts);
-      console.log('Produto salvo com sucesso:', newProduct);
-      this.router.navigate(['/home']);
+      await this.postService.addPost(newProduct); // Salva no Firestore
+      alert('Postagem criada com sucesso!');
+      this.router.navigate(['/home']); // Redireciona para a página inicial
     } catch (error) {
       console.error('Erro ao salvar o post:', error);
+      alert('Erro ao salvar a postagem. Tente novamente.');
     }
   }
 

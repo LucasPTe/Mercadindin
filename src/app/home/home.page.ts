@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AutheticationService } from 'src/app/authetication.service';
 import { Storage } from '@ionic/storage-angular';
+import { PostService } from '../services/post.service';
 
 @Component({
   selector: 'app-home',
@@ -9,80 +10,76 @@ import { Storage } from '@ionic/storage-angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
+  posts: any[] = []; // Armazena os posts carregados do Firestore
   isModalOpen = false;
   selectedProduct: any;
   userEmail: string | null = null;
   userName: string = 'Nome do Usuário'; // Variável que irá armazenar o nome do usuário
   userPhoto: string = 'assets/user-default.png'; // Caminho para a foto do usuário
 
-  // Lista de produtos
+  // Lista de produtos (local storage)
   products: any[] = [];
 
   constructor(
     private router: Router,
     private authService: AutheticationService,
-    private storage: Storage // Adiciona o serviço de Storage
+    private storage: Storage,
+    private postService: PostService
   ) {}
-
-  async ionViewWillEnter() {
-    // Recarrega os produtos do Local Storage sempre que a página é exibida
-    const storedProducts = await this.storage.get('products');
-    this.products = storedProducts || [];
-    console.log('Produtos carregados ao entrar na página:', this.products);
-
-    // Carregar a foto do usuário quando a página é exibida
-    await this.loadUserPhoto();
-  }
 
   async ngOnInit() {
     await this.storage.create(); // Inicializa o Storage
 
-    try {
-      const storedProducts = await this.storage.get('products'); // Recupera os produtos salvos
-      if (storedProducts) {
-        this.products = storedProducts; // Atualiza a lista de produtos
-        console.log('Produtos carregados:', this.products); // Log para depuração
-      }
-    } catch (error) {
-      console.error('Erro ao carregar os produtos:', error);
+    // Carregar produtos do local storage
+    const storedProducts = await this.storage.get('products');
+    if (storedProducts) {
+      this.products = storedProducts;
     }
 
-    // Obtem os dados do usuário logado usando o serviço de autenticação
-    this.authService.userDetails().subscribe(userDetails => {
+    // Carregar informações do usuário autenticado
+    this.authService.userDetails().subscribe((userDetails) => {
       if (userDetails) {
-        console.log('Dados do usuário:', userDetails);  // Adicionei o log de depuração aqui
         this.userEmail = userDetails.email;
-        this.userName = userDetails.displayName || 'Nome não definido'; // Definindo o nome do usuário
-        this.userPhoto = userDetails.photoURL || 'assets/user-default.png'; // Definindo a foto do usuário
-        // Salvar a foto no Storage
+        this.userName = userDetails.displayName || 'Nome não definido';
+        this.userPhoto = userDetails.photoURL || 'assets/user-default.png';
         this.saveUserPhoto(userDetails.photoURL);
-      } else {
-        console.log('Nenhum usuário autenticado.'); // Caso o usuário não esteja autenticado
       }
     });
+
+    // Carregar os posts do Firestore
+    this.loadPosts();
   }
 
-  // Função para salvar a foto do usuário no Ionic Storage
+  async loadPosts() {
+    this.postService.getPosts().subscribe(
+      (data) => {
+        this.posts = data; // Atualiza a lista de posts com os dados do Firestore
+        console.log('Posts carregados:', this.posts);
+      },
+      (error) => {
+        console.error('Erro ao carregar posts:', error);
+      }
+    );
+  }
+
   async saveUserPhoto(photoURL: string | null) {
     if (photoURL) {
-      await this.storage.set('userPhoto_' + this.userEmail, photoURL); // Salva a foto no Storage
-      console.log('Foto do usuário salva no Storage');
+      await this.storage.set('userPhoto_' + this.userEmail, photoURL);
     }
   }
 
-  // Função para carregar a foto do usuário do Ionic Storage
   async loadUserPhoto() {
     if (this.userEmail) {
       const storedPhoto = await this.storage.get('userPhoto_' + this.userEmail);
       if (storedPhoto) {
-        this.userPhoto = storedPhoto; // Atualiza a foto do usuário
+        this.userPhoto = storedPhoto;
       }
     }
   }
 
   async addProduct(product: any) {
-    this.products.push(product); // Adiciona o produto à lista
-    await this.storage.set('products', this.products); // Salva no Storage
+    this.products.push(product);
+    await this.storage.set('products', this.products);
   }
 
   PostPag() {
@@ -97,11 +94,14 @@ export class HomePage implements OnInit {
   }
 
   logoutUser() {
-    this.authService.logoutUser().then(() => {
-      this.router.navigate(['/login']);
-    }).catch(error => {
-      console.error('Erro ao deslogar: ', error);
-    });
+    this.authService
+      .logoutUser()
+      .then(() => {
+        this.router.navigate(['/login']);
+      })
+      .catch((error) => {
+        console.error('Erro ao deslogar: ', error);
+      });
   }
 
   generateMapLink(market: string | undefined): string {
@@ -119,11 +119,11 @@ export class HomePage implements OnInit {
     return marketLocations[market] || 'https://www.google.com/maps';
   }
 
-  // Navegar para editar o perfil
   editProfile() {
-    this.router.navigate(['/edit-profile']); // Rota para a página de edição
+    this.router.navigate(['/edit-profile']);
   }
+
   devs() {
-    this.router.navigate(['/desenvolvedores']); // Rota para a página de edição
+    this.router.navigate(['/desenvolvedores']);
   }
 }
