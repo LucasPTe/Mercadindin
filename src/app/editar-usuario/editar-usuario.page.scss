@@ -11,7 +11,7 @@ ion-toolbar{
 }
 
 ion-content{
-    --background: #bcc1bd;
+    --background: #2d3e39;
 }
 
 .seta{
@@ -19,18 +19,24 @@ ion-content{
     color: #F7D8A5;
 
 }
-
+.box-form{
+  background-color: #f2e3d531;
+  height: 600px;
+  padding: 20px 5px;
+  border-radius: 20px;
+}
 .campo {
-  width: 50%;
+  width: 60%;
   display: flex;
   align-items: center; /* Alinha o nome e a caneta na vertical */
   justify-content: space-between; /* Coloca o nome à esquerda e o ícone à direita */
   margin: 10px auto; /* Ajusta o espaçamento entre os campos, se necessário */
+
   }
   
   .campo ion-label {
     font-family: "Mukta", sans-serif;
-    color: #2D3E39;
+    color: #F2E3D5;
     margin-right: 10px; /* Ajusta a distância entre o nome e o ícone */
   }
   
@@ -43,7 +49,7 @@ ion-content{
   /* Ajustar o ícone da caneta */
   .campo ion-icon {
     font-size: 20px; /* Tamanho do ícone */
-    color: #4F665C; /* Cor do ícone, ajuste conforme necessário */
+    color: #F2E3D5; /* Cor do ícone, ajuste conforme necessário */
   }
   
 
