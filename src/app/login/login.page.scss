@@ -92,10 +92,18 @@ font-family: "Mukta", sans-serif;
     border-radius: 20px;
   }
 }
+ion-input {
+  --highlight-color: transparent; /* Remove a cor da linha */
+  --highlight-color-invalid: transparent; /* Remove cor em caso de erro */
+  --highlight-color-valid: transparent; /* Remove cor em caso de sucesso */
+  --placeholder-opacity: 1; /* Garante que o placeholder mantenha opacidade */
+  --color-focused: inherit; /* Garante que a cor do texto não mude */
+}
 
-
-
-
+ion-item {
+  --highlight-color-focused: transparent; /* Remove a cor do contorno no foco */
+  --border-width: 0px; /* Remove qualquer borda */
+}
 /* Labels */
 .ion-label {
   font-family: "Mukta", sans-serif;

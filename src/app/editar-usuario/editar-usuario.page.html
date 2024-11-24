@@ -18,8 +18,8 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form (submit)="saveChanges()">
-    <!-- Foto do usuário -->
+  <form (submit)="saveChanges()" class="form-box">
+    <div class="box-form"><!-- Foto do usuário -->
     <div class="photo-container">
       <div class="user-photo">
         <img [src]="userPhoto" alt="Foto do usuário">
@@ -62,5 +62,6 @@
 
     <!-- Botão de salvar -->
     <ion-button expand="block" type="submit" [disabled]="!changesMade">Salvar Alterações</ion-button>
+    </div>
   </form>
 </ion-content>
