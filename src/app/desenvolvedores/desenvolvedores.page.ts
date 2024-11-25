@@ -17,10 +17,10 @@ export class DesenvolvedoresPage {
     },
     {
       name: 'Annibal Gulias',
-      photo: 'assets/annibal.jpg', // Substitua pelo caminho real da imagem
-      instagramUsername: '@annibal',
-      githubUsername: 'annibal',
-      linkedinUsername: 'annibal'
+      photo: 'assets/images/img_devs/Annibal.png', // Substitua pelo caminho real da imagem
+      instagramUsername: '@annibal.gulias',
+      githubUsername: 'annibal.gulias',
+      linkedinUsername: 'Annibal Gulias'
     },
     {
       name: 'Lucas Roberto Lopes',

@@ -82,7 +82,7 @@ ion-label {
   background-color: transparent;
 }
 .img_card {
-  max-width: 100%;
+  max-width: 90%;
   height: auto;
 }
 .img_card_modal {
@@ -117,7 +117,6 @@ ion-toolbar {
 }
 
 ion-fab-button {
-  --background: #f1a501;
   --background-activated: #87d361;
   --background-hover: #a3e681;
   --border-radius: 30px;
@@ -194,6 +193,7 @@ ion-card-title {
 
 .postado{
 
+  margin-left:10px;
   font-family: "Host Grotesk", sans-serif;
   color: #F2E3D5;
 
@@ -209,15 +209,17 @@ ion-card-title {
 }
 
 .desc_title{
+  padding-top: 10px;
+  margin-left:10px;
+  color: #F2E3D5;
   font-family: "Host Grotesk", sans-serif;
   margin-bottom: 10px;
   font-weight: bold;
-  margin-left: 5px;
 }
 
 .texto_desc{
+  margin-left: 10px;
   margin-top: 8px;
-  margin-left: 5px;
 }
 
 .preco_text{
@@ -227,10 +229,19 @@ ion-card-title {
 }
 
 .preco_m{
+  margin-left: 10px;
   font-family: "Host Grotesk", sans-serif;
-  color: #000000;
   font-size: 24px;
   font-weight: bold;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  color:#F4D7C4;
+  text-shadow: 
+  -1px -1px 0 #000,  
+   1px -1px 0 #000,
+  -1px  1px 0 #000,
+   1px  1px 0 #000;
+
 }
 
 .btn_leva{
@@ -256,4 +267,16 @@ ion-card-title {
 
   color:#F7D8A5;
 
+}
+
+.secao{
+  border-radius: 5px;
+  background-color: #4F665C;
+
+}
+
+.mercado{
+
+padding-bottom: 15px;
+  
 }
