@@ -48,7 +48,6 @@
       <ion-input [value]="selectedMarket" readonly *ngIf="selectedMarket"></ion-input>
     </ion-item>
 
-
     <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
       <ng-template>
         <ion-header>
@@ -94,5 +93,8 @@
   </ion-list>
 
   <!-- Botão para salvar o post -->
-  <ion-button class="enviar_post" expand="full" (click)="salvarPost()">Publicar</ion-button>
+  <ion-button class="enviar_post" expand="full" (click)="salvarPost()" [disabled]="isLoading" id="publicarBtn">
+    <ion-spinner *ngIf="isLoading" name="circles"></ion-spinner>
+    <span *ngIf="!isLoading">Publicar</span>
+  </ion-button>
 </ion-content>

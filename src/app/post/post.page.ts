@@ -5,6 +5,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { PostService } from '../services/post.service';
 
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.page.html',
@@ -19,6 +20,7 @@ export class PostPage implements OnInit {
   userEmail: string | null = null;
   description: string = '';
   isModalOpen: boolean = false;
+  isLoading: boolean = false; // Variável para rastrear o estado de carregamento
 
   defaultImage: string = 'assets/images/logo_mercadindin.png';
 
@@ -69,16 +71,33 @@ export class PostPage implements OnInit {
     );
   }
 
-  formatCurrency(value: string) {
-    const numericValue = value.replace(/[^\d]/g, '');
+  formatCurrency(value: string): string {
+    // Remove tudo que não é número
+    const numericValue = value.replace(/[^0-9]/g, '');
+  
+    // Evita erros caso a entrada esteja vazia
+    if (!numericValue) {
+      return 'R$ 0,00';
+    }
+  
+    // Converte para número e formata como moeda
     const formattedValue = (parseInt(numericValue, 10) / 100).toFixed(2);
+  
+    // Retorna no formato brasileiro
     return `R$ ${formattedValue.replace('.', ',')}`;
   }
-
+  
   onPriceChange(event: any) {
     const inputValue = event.target.value;
-    this.productPrice = this.formatCurrency(inputValue);
+  
+    // Formata o valor e impede caracteres inválidos
+    const formattedValue = this.formatCurrency(inputValue);
+  
+    // Atualiza o valor do campo e da propriedade
+    event.target.value = formattedValue; // Atualiza o valor no input
+    this.productPrice = formattedValue;  // Armazena no modelo
   }
+  
 
   async salvarPost() {
     if (
@@ -91,6 +110,8 @@ export class PostPage implements OnInit {
       alert('Preencha todos os campos e insira uma imagem válida!');
       return;
     }
+
+    this.isLoading = true; // Ativa o estado de carregamento
 
     const newProduct = {
       title: this.productTitle,
@@ -109,6 +130,8 @@ export class PostPage implements OnInit {
     } catch (error) {
       console.error('Erro ao salvar o post:', error);
       alert('Erro ao salvar a postagem. Tente novamente.');
+    } finally {
+      this.isLoading = false; // Desativa o estado de carregamento
     }
   }
 

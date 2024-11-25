@@ -43,6 +43,10 @@ ion-textarea {
 }
 
 .enviar_post {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px; /* Espaço entre o spinner e o texto */
   --background: #2D3E39;
   --color: #F7D8A5;
   width: 60%;
@@ -50,8 +54,14 @@ ion-textarea {
   font-weight: bold;
   font-family: "Host Grotesk", sans-serif;
   font-size: 17px;
-  text-align: center; /* Garante que o texto dentro do botão esteja centralizado */
+  text-align: center;
 }
+
+.enviar_post ion-spinner {
+  width: 20px;
+  height: 20px;
+}
+
 
 ion-select {
   font-family: "Host Grotesk", sans-serif;
@@ -143,10 +153,10 @@ ion-title{
 .textarea-pequeno {
   height: 40px; /* Altura reduzida */
   font-size: 16px; /* Tamanho menor da fonte */
-
+    margin-bottom: 10px;
   --padding-end: 8px;
   --padding-top: 10px; /* Menor espaçamento superior */
-  --padding-bottom: 4px;
+  --padding-bottom: 10px;
   top: -4px ;
 }
 

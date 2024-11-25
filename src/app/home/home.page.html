@@ -23,11 +23,11 @@
 
     <ion-content>
       <ion-list>
-        <ion-item button (click)="logoutUser()">
+        <ion-item class="btn_lateral" button (click)="logoutUser()">
           <ion-icon slot="start" name="log-out"></ion-icon>
           Logout
         </ion-item>
-        <ion-item button (click)="devs()">
+        <ion-item class="btn_lateral" button (click)="devs()">
           <ion-icon slot="start" name="terminal-outline"></ion-icon>
           Desenvolvedores
         </ion-item>
@@ -94,14 +94,16 @@
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
-          <img [src]="selectedProduct?.image" [alt]="selectedProduct?.title" class="img_card_modal">
-          <p class="desc_title">Descrição:</p>
-          <ion-item class="teste" lines="none">
-            <p class="texto_desc">{{ selectedProduct?.description }}</p>
-          </ion-item>
-          <p class="preco_m"><strong class="preco_text">Preço:</strong> {{ selectedProduct?.price }}</p>
-          <p class="postado"><strong>Postado por:</strong> {{ selectedProduct?.email }}</p>
-          <p>{{ selectedProduct?.subtitle }}</p>
+          <img [src]="selectedProduct?.image" [alt]="selectedProduct?.title" class="img_card_modal testes">
+          <section class="secao">
+            <p class="desc_title">Descrição:</p>
+            <ion-item class="teste" lines="none">
+              <p class="texto_desc">{{ selectedProduct?.description }}</p>
+            </ion-item>
+            <p class="preco_m"><strong class="preco_text">Preço:</strong> {{ selectedProduct?.price }}</p>
+            <p class="postado"><strong>Postado por:</strong> {{ selectedProduct?.email }}</p>
+            <p class="postado mercado">{{ selectedProduct?.subtitle }}</p>
+          </section>
           <a [href]="generateMapLink(selectedProduct?.subtitle)" target="_blank" rel="noopener noreferrer" class="button btn_leva">Me leve até lá</a>
         </ion-content>
       </ng-template>
