@@ -17,22 +17,22 @@ export class DesenvolvedoresPage {
     },
     {
       name: 'Annibal Gulias',
-      photo: 'assets/annibal.jpg', // Substitua pelo caminho real da imagem
-      instagramUsername: '@annibal',
+      photo: 'assets/images/img_devs/annibal.jpeg', // Substitua pelo caminho real da imagem
+      instagramUsername: '@annibal.gulias',
       githubUsername: 'annibal',
-      linkedinUsername: 'annibal'
+      linkedinUsername: 'Annibal Gulias'
     },
     {
       name: 'Lucas Roberto Lopes',
-      photo: 'assets/lucas.jpg', // Substitua pelo caminho real da imagem
-      instagramUsername: '@lucas',
-      githubUsername: 'lucas',
-      linkedinUsername: 'lucas'
+      photo: 'assets/images/img_devs/lucas.jpeg', // Substitua pelo caminho real da imagem
+      instagramUsername: '@lucaslopes.dev',
+      githubUsername: 'LucasPTe',
+      linkedinUsername: 'Lucas Lopes'
     },
     {
       name: 'Caio Nery',
-      photo: 'assets/caio.jpg', // Substitua pelo caminho real da imagem
-      instagramUsername: '@caio',
+      photo: 'assets/images/img_devs/caio.jpg', // Substitua pelo caminho real da imagem
+      instagramUsername: '@caio_n.r',
       githubUsername: 'caio',
       linkedinUsername: 'caio'
     }
